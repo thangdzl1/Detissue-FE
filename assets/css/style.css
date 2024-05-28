@@ -14968,6 +14968,12 @@ input {
     text-align: right;
     transform: translateY(30px);
 }
+.banner-style-3 .img-fluid {
+
+    width: 1043px;
+    height: 700px;
+
+}
 @media (min-width: 576px) {
     .banner-style-3 .content {
         transform: translateY(70px);
