@@ -16104,6 +16104,7 @@ input {
 .default-form-box input[type=password],
 .default-form-box input[type=number],
 .default-form-box input[type=date],
+.default-form-box input[type=tel],
 .default-form-box textarea {
     border: 1px solid #ededed;
     border-radius: 3px;
@@ -16119,6 +16120,7 @@ input {
 .default-form-box input[type=password]::placeholder,
 .default-form-box input[type=number]::placeholder,
 .default-form-box input[type=date]::placeholder,
+.default-form-box input[type=tel]::placeholder,
 .default-form-box textarea::placeholder {
     font-size: 14px;
 }
@@ -16127,12 +16129,19 @@ input {
 .default-form-box input[type=password]:focus,
 .default-form-box input[type=number]:focus,
 .default-form-box input[type=date]:focus,
+.default-form-box input[type=tel]:focus,
 .default-form-box textarea:focus {
     border-color: #b19361;
 }
 .default-form-box textarea {
     height: 200px;
     padding: 20px;
+}
+
+.error-message {
+    color: red;
+    display: none;
+    margin-top: 5px;
 }
 
 .default-search-style {

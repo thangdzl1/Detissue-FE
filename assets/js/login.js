@@ -26,29 +26,48 @@ $(document).ready(function () {
         });
     });
 
-    $("#registerBtn").click(function () {
+    $(document).ready(function() {
+        $("#registerBtn").click(function () {
+            var username = $("#register-username").val();
+            var password = $("#register-password").val();
+            var email = $("#register-email").val();
+            var fullname = $("#register-fullname").val();
+            var phoneNumber = $("#register-phone-number").val();
 
-        var email = $("#register-email").val();
-        var password = $("#register-password").val();
-
-        if (!email || !password) {
-            swal("Failed", "Email and password are required!", "warning");
-            return;
-        }
-
-        $ajax({
-            type: "POST",
-            url: "your-register-API",
-            date: {
-                email: email,
-                password: password
-            },
-            success: function (response) {
-                swal("Success", "Registration succesful!", "Success");
-            },
-            error: function (xhr, status, error) {
-                swal("Failed", "Registration failed!", "error");
+            if (!username || !password || !email || !fullname || !phoneNumber) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Failed',
+                    text: 'All fields are required!'
+                });
+                return;
             }
+
+            $.ajax({
+                type: "POST",
+                url: "your-register-API",
+                data: {
+                    username: username,
+                    password: password,
+                    email: email,
+                    fullname: fullname,
+                    phoneNumber: phoneNumber
+                },
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Registration successful!'
+                    });
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: 'Registration failed!'
+                    });
+                }
+            });
         });
     });
 });

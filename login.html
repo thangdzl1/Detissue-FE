@@ -33,7 +33,7 @@
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css">
-    <link rel="stylesheet" href="assets/css/style.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 <body>
@@ -614,11 +614,11 @@
                         <form action="#" method="POST">
                             <div class="default-form-box">
                                 <label>Username or email <span>*</span></label>
-                                <input type="text" id="login-username" name="username">
+                                <input type="text" id="login-username" name="username" required title="Please enter your username or email.">
                             </div>
                             <div class="default-form-box">
-                                <label>Passwords <span>*</span></label>
-                                <input type="password" id="login-password" name="password">
+                                <label>Password <span>*</span></label>
+                                <input type="password" id="login-password" name="password" required title="Please enter your password.">
                             </div>
                             <div class="login_submit">
                                 <button id="loginBtn" class="btn btn-md btn-black-default-hover mb-4" type="submit">login</button>
@@ -638,14 +638,31 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="account_form register" data-aos="fade-up"  data-aos-delay="200">
                         <h3>Register</h3>
-                        <form action="#">
+                    <form action="#">
                             <div class="default-form-box">
-                                <label>Email address <span>*</span></label>
-                                <input type="text" id="register-email" name="email">
+                                <label>User Name <span>*</span></label>
+                                <input type="text" id="register-username" name="username" required>
+                                <span class="error-message" id="error-username">Please enter your username.</span>
                             </div>
                             <div class="default-form-box">
-                                <label>Passwords <span>*</span></label>
-                                <input type="password" id="register-password" name="password">
+                                <label>Password <span>*</span></label>
+                                <input type="password" id="register-password" name="password" required>
+                                <span class="error-message" id="error-password">Please enter your password.</span>
+                            </div>
+                            <div class="default-form-box">
+                                <label>Email address <span>*</span></label>
+                                <input type="email" id="register-email" name="email" required>
+                                <span class="error-message" id="error-email">Please enter your email.</span>
+                            </div>
+                            <div class="default-form-box">
+                                <label>Full Name <span>*</span></label>
+                                <input type="text" id="register-fullname" name="fullname" required>
+                                <span class="error-message" id="error-fullname">Please enter your full name.</span>
+                            </div>
+                            <div class="default-form-box">
+                                <label>Phone Number <span>*</span></label>
+                                <input type="tel" id="register-phone-number" name="phoneNumber" pattern="[0-9]{10}" required>
+                                <span class="error-message" id="error-phone-number">Please enter a valid 10-digit phone number.</span>
                             </div>
                             <div class="login_submit">
                                 <button id="registerBtn" class="btn btn-md btn-black-default-hover" type="submit">Register</button>
@@ -1000,6 +1017,7 @@
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
     <script src="assets/js/vendor/vendor.min.js"></script>
     <script src="assets/js/plugins/plugins.min.js"></script> 
+    <script src="vendor/sweetalert/sweetalert.min.js"></script>
 
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
