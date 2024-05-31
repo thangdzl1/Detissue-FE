@@ -40,10 +40,16 @@ $(document).ready(function () {
         $("#registerBtn").click(function () {
             var username = $("#register-username").val();
             var password = $("#register-password").val();
+            var repeatPassword = $("#register-repeatPassword").val();
             var email = $("#register-email").val();
             var fullname = $("#register-fullname").val();
             var phoneNumber = $("#register-phone-number").val();
 
+            if (!username || !password || !repeatPassword || !email || !fullname || !phoneNumber) {
+                swal("Failed", "Please fill in the blank", "warning");
+                return;
+            }
+            
             if (password != repeatPassword) {
                 swal("Error!", "Password are not the same!")
                 return;
