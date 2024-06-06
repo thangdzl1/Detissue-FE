@@ -18160,7 +18160,7 @@ Pages - Contact
 
 .mega-menu-inner {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .mega-menu-item-title {
