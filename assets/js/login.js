@@ -13,25 +13,28 @@ $(document).ready(function () {
             return;
         }
 
-        postAjax("user/login",
+        postAjax("user/signin",
             {
                 username: username,
                 password: password
             },
         ).done(function (response) {
             // Khi gọi API thì kết quả sẽ trả ở đây
-            var token = msg.data
+            var token = response.data
+            console.log(response)
             //check xem token tồn tại chưa và có rỗng hay không
             if (token != null && token != "") {
                 swal("Success", "Login successfully!", "success") // xài thư viện sweetalert2 để hiển thị thông báo
                     .then(() => {
                         //lưu token bảo mật vào bộ nhớ của browser
-                        localStorage.setItem("token", token)
+                        localStorage.setItem("token", token);
+                        console.log(token)
                         //chuyển qua trang index.html
                         window.location.href = "index.html"
                     });
             }
         }).fail(function (jqXHR) {
+            console.log('Error:', jqXHR);
             swal("Failed!", "Incorrect username or password!", "warning");
         })
     })

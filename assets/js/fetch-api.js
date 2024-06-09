@@ -1,23 +1,26 @@
-import { getAjax, postAjax, url, jwtToken } from './api-ajax.js';//import các hàm getAjax và postAjax từ file api-ajax.js
+import { getAjax, postAjax, jwtToken } from './api-ajax.js';//import các hàm getAjax và postAjax từ file api-ajax.js
+
 
 export function getAllProduct(size, page) {
-    new Promise(() => {
-        getAjax("/product",
-            {
-                size: size,
-                page: page
-            },
-        ).done(function (response) {
-            return response;
-        }).fail(function (jqXHR) {
-            swal("Failed!", "warning");
-        })
-    })
+    console.log(jwtToken)
+    page = 0;
+    size = 3;
+    return getAjax("product",
+        {
+            page: page,
+            size: size
+        },
+        jwtToken
+    ).then(function (response) {
+        return response;
+    }).catch(function (jqXHR) {
+        swal("Failed!", "warning");
+    });
 }
 
 export function getProductByID(page, limit) {
     new Promise(() => {
-        getAjax("/product/1",
+        getAjax("product/1",
             {
                 page: page,
                 limit: limit
@@ -32,7 +35,7 @@ export function getProductByID(page, limit) {
 
 export function getUserWishlistByUserID(id) {
     new Promise(() => {
-        getAjax("/user-wishlist/user",
+        getAjax("user-wishlist/user",
             {
                 id: id
             },
@@ -46,7 +49,7 @@ export function getUserWishlistByUserID(id) {
 
 export function getDeleteUserWishlist(userId, productId) {
     new Promise(() => {
-        getAjax("/user-wishlist/delete",
+        getAjax("user-wishlist/delete",
             {
                 userId: userId,
                 productId: productId
@@ -61,7 +64,7 @@ export function getDeleteUserWishlist(userId, productId) {
 
 export function getAddUserWishlist(userId, productId) {
     new Promise(() => {
-        getAjax("/user-wishlist/add",
+        getAjax("user-wishlist/add",
             {
                 userId: userId,
                 productId: productId
@@ -76,7 +79,7 @@ export function getAddUserWishlist(userId, productId) {
 
 export function getUserCartByUserID(page, limit) {
     new Promise(() => {
-        getAjax("/shopping-cart/user",
+        getAjax("shopping-cart/user",
             {
                 page: page,
                 limit: limit
@@ -91,7 +94,7 @@ export function getUserCartByUserID(page, limit) {
 
 export function getUserOrder(page, limit) {
     new Promise(() => {
-        getAjax("/shop-order/user",
+        getAjax("shop-order/user",
             {
                 page: page,
                 limit: limit
@@ -106,7 +109,7 @@ export function getUserOrder(page, limit) {
 
 export function postToGetAddressByUserID(id) {
     new Promise(() => {
-        postAjax("/user/address",
+        postAjax("user/address",
             {
                 id: id
             },

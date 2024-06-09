@@ -1,5 +1,5 @@
 export const jwtToken = localStorage.getItem("token");//lấy token từ local storage
-export const url = "http://localhost:8080"; //url của server
+export const url = "http://localhost:8080/"; //url của server
 
 export function getAjax(endPoint, data = {}, jwtToken = "") {
   let headers = {
@@ -13,7 +13,7 @@ export function getAjax(endPoint, data = {}, jwtToken = "") {
   // ajax cho phép gọi đường dẫn ngầm và lấy giá trị của đường dẫn đó
   return $.ajax({
     method: "get",
-    url: url +endPoint,
+    url: url + endPoint,
     data: data,
     headers: headers
   })
