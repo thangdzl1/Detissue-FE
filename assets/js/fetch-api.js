@@ -33,17 +33,17 @@ export function getProductByID(page, limit) {
     })
 }
 
-export function getUserWishlistByUserID(id) {
-    new Promise(() => {
-        getAjax("user-wishlist/user",
-            {
-                id: id
-            },
-        ).done(function (response) {
-            return response;
-        }).fail(function (jqXHR) {
-            swal("Failed!", "warning");
-        })
+export function getFindUserWishlist() {
+    console.log(jwtToken)
+    return getAjax("user-wishlist/user",
+        {
+            
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
+    }).fail(function (jqXHR) {
+        swal("Failed!", "warning");
     })
 }
 
