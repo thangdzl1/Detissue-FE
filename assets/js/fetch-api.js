@@ -44,15 +44,14 @@ export function findUserWishlist() {
     })
 }
 
-export function DeleteUserWishlist(productId) {
+export function deleteUserWishlist(productId) {
     return getAjax("user-wishlist/delete",
         {
             productId: productId
         },
+        jwtToken
     ).done(function (response) {
         return response;
-    }).fail(function (jqXHR) {
-        swal("Failed!", "warning");
     })
 }
 

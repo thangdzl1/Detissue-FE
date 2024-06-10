@@ -1,4 +1,4 @@
-import { getAllProduct, findUserWishlist, getUserCartByUserID } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
+import { getAllProduct, findUserWishlist, getUserCartByUserID, deleteUserWishlist } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
 $(document).ready(function () {
     getAllProduct().done(function (response) {
         let placeholder = document.querySelector("#product-table"); //trỏ đến id của table
@@ -55,46 +55,51 @@ $(document).ready(function () {
             let placeholder = document.querySelector("#wishlist-holder");
             let out = "";
             let data = Array.isArray(response.data) ? response.data : [response.data];
-            console.log(data);
-            for (let output of data) {
-                out += `<li class="offcanvas-wishlist-item-single">
-                    <div class="offcanvas-wishlist-item-block">
-                        <a href="#" class="offcanvas-wishlist-item-image-link">
-                            <img src="assets/images/product/default/home-1/default-1.jpg" alt=""
-                                class="offcanvas-wishlist-image">
-                        </a>
-                        <div class="offcanvas-wishlist-item-content">
-                            <a href="#" class="offcanvas-wishlist-item-link">${output.name}</a>
-                            <div class="offcanvas-wishlist-item-details">
-                                <span class="offcanvas-wishlist-item-details-quantity">$${output.priceMin} - $${output.priceMin} </span>
+            if (data.length == 0) {
+                out = `<li class="offcanvas-wishlist-item-single">
+                    <p class="offcanvas-wishlist-item-empty">No items found in the wishlist.</p>`;
+                placeholder.innerHTML = out;
+            } else {
+                for (let output of data) {
+                    out += `<li class="offcanvas-wishlist-item-single">
+                        <div class="offcanvas-wishlist-item-block">
+                            <a href="#" class="offcanvas-wishlist-item-image-link">
+                                <img src="assets/images/product/default/home-1/default-1.jpg" alt=""
+                                    class="offcanvas-wishlist-image">
+                            </a>
+                            <div class="offcanvas-wishlist-item-content">
+                                <a href="#" class="offcanvas-wishlist-item-link">${output.name}</a>
+                                <div class="offcanvas-wishlist-item-details">
+                                    <span class="offcanvas-wishlist-item-details-quantity">$${output.priceMin} - $${output.priceMin} </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="offcanvas-wishlist-item-delete text-right">
-                        <a href="#" class="offcanvas-wishlist-item-delete"><i class="fa fa-trash-o"></i></a>
-                    </div>
-                </li>`;
+                        <div class="offcanvas-wishlist-item-delete text-right" wishlist-id="${output.id}">
+                            <a href="#" class="offcanvas-wishlist-item-delete"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </li>`;
+                }
+                placeholder.innerHTML = out;
+
+                // Attach the event listener here, after the wishlist items are added to the DOM
+                document.querySelectorAll('.offcanvas-wishlist-item-delete').forEach(function (deleteButton) {
+                    deleteButton.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        let productId = event.currentTarget.getAttribute('wishlist-id');
+                        console.log(productId);
+                        deleteUserWishlist(productId).done(function (response) {
+                            console.log(response.data);
+                            if (response.data) {
+                                event.target.closest('.offcanvas-wishlist-item-single').remove();
+                            } else {
+                                swal("Failed!", "Could not delete the item from the wishlist.", "warning");
+                            }
+                        });
+                    });
+                });
             }
-            placeholder.innerHTML = out;
         });
     });
-
-    document.querySelector('#wishlist-holder').addEventListener('click', function(event) {
-        if (event.target.closest('.offcanvas-wishlist-item-delete')) {
-            event.preventDefault();
-            let productId = event.target.closest('.offcanvas-wishlist-item-single').getAttribute('data-product-id');
-
-            DeleteUserWishlist(productId).done(function(response) {
-                if (response.success) {
-                    event.target.closest('.offcanvas-wishlist-item-single').remove();
-                } else {
-                    swal("Failed!", "Could not delete the item from the wishlist.", "warning");
-                }
-            }).fail(function() {
-                swal("Failed!", "Could not delete the item from the wishlist.", "warning");
-            });
-        }
-    })
 
     document.querySelector('#show-cart-btn').addEventListener('click', function (event) {
         event.preventDefault();
