@@ -49,66 +49,50 @@ $(document).ready(function () {
         placeholder.innerHTML = out; // add the generated HTML to the product table
     });
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // Chọn phần tử có class offcanvas-toggle
-        const offcanvasToggle = document.querySelector('.offcanvas-toggle');
-
-        // Kiểm tra xem phần tử có tồn tại hay không
-        if (offcanvasToggle) {
-            // Thêm sự kiện lắng nghe click
-            offcanvasToggle.addEventListener('click', function (event) {
-                // Ngăn chặn hành vi mặc định của liên kết
-                event.preventDefault();
-
-                // Thực hiện hành động khi phần tử được click
-                console.log('Offcanvas toggle was clicked!');
-
-                // Ví dụ: Mở offcanvas wishlist hoặc thực hiện hành động khác
-                // document.getElementById('offcanvas-wishlish').classList.toggle('open');
-            });
-        }
-    });
-
+    document.querySelector('#show-wishlist-btn').addEventListener('click', function (event) {
+    event.preventDefault();
     getFindUserWishlist().done(function (response) {
-        let placeholder = document.querySelector();
+        let placeholder = document.querySelector("#wishlist-holder");
         let out = "";
         for (let output of response.data) {
             out += `<div id="offcanvas-wishlish" class="offcanvas offcanvas-rightside offcanvas-add-cart-section">
-        <!-- Start Offcanvas Header -->
-        <div class="offcanvas-header text-right">
-            <button class="offcanvas-close"><i class="ion-android-close"></i></button>
-        </div> <!-- ENd Offcanvas Header -->
-
-        <!-- Start Offcanvas Mobile Menu Wrapper -->
-        <div class="offcanvas-wishlist-wrapper">
-            <h4 class="offcanvas-title">Wishlist</h4>
-            <ul class="offcanvas-wishlist">
-                <li class="offcanvas-wishlist-item-single">
-                    <div class="offcanvas-wishlist-item-block">
-                        <a href="#" class="offcanvas-wishlist-item-image-link">
-                            <img src="assets/images/product/default/home-1/default-1.jpg" alt=""
-                                class="offcanvas-wishlist-image">
-                        </a>
-                        <div class="offcanvas-wishlist-item-content">
-                            <a href="#" class="offcanvas-wishlist-item-link">${output.name}</a>
-                            <div class="offcanvas-wishlist-item-details">
-                                <span class="offcanvas-wishlist-item-details-quantity">1 x </span>
-                                <span class="offcanvas-wishlist-item-details-price">$${output.priceMin}</span>
+            <!-- Start Offcanvas Header -->
+            <div class="offcanvas-header text-right">
+                <button class="offcanvas-close"><i class="ion-android-close"></i></button>
+            </div> <!-- ENd Offcanvas Header -->
+    
+            <!-- Start Offcanvas Mobile Menu Wrapper -->
+            <div class="offcanvas-wishlist-wrapper">
+                <h4 class="offcanvas-title">Wishlist</h4>
+                <ul class="offcanvas-wishlist">
+                    <li class="offcanvas-wishlist-item-single">
+                        <div class="offcanvas-wishlist-item-block">
+                            <a href="#" class="offcanvas-wishlist-item-image-link">
+                                <img src="assets/images/product/default/home-1/default-1.jpg" alt=""
+                                    class="offcanvas-wishlist-image">
+                            </a>
+                            <div class="offcanvas-wishlist-item-content">
+                                <a href="#" class="offcanvas-wishlist-item-link">${output.name}</a>
+                                <div class="offcanvas-wishlist-item-details">
+                                    <span class="offcanvas-wishlist-item-details-quantity">1 x </span>
+                                    <span class="offcanvas-wishlist-item-details-price">$${output.priceMin}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="offcanvas-wishlist-item-delete text-right">
-                        <a href="#" class="offcanvas-wishlist-item-delete"><i class="fa fa-trash-o"></i></a>
-                    </div>
-                </li>
-            </ul>
-            <ul class="offcanvas-wishlist-action-button">
-                <li><a href="#" class="btn btn-block btn-golden">View wishlist</a></li>
-            </ul>
-        </div> <!-- End Offcanvas Mobile Menu Wrapper -->
-
-    </div> <!-- End Offcanvas Mobile Menu Section -->`;
+                        <div class="offcanvas-wishlist-item-delete text-right">
+                            <a href="#" class="offcanvas-wishlist-item-delete"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="offcanvas-wishlist-action-button">
+                    <li><a href="#" class="btn btn-block btn-golden">View wishlist</a></li>
+                </ul>
+            </div> <!-- End Offcanvas Mobile Menu Wrapper -->
+    
+        </div> <!-- End Offcanvas Mobile Menu Section -->`;
         }
-        placeholder.innerHTML = out;
+        placeholder.innerHTML += out;
     });
+});
+
 });
