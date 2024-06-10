@@ -79,6 +79,23 @@ $(document).ready(function () {
         });
     });
 
+    document.querySelector('#wishlist-holder').addEventListener('click', function(event) {
+        if (event.target.closest('.offcanvas-wishlist-item-delete')) {
+            event.preventDefault();
+            let productId = event.target.closest('.offcanvas-wishlist-item-single').getAttribute('data-product-id');
+
+            DeleteUserWishlist(productId).done(function(response) {
+                if (response.success) {
+                    event.target.closest('.offcanvas-wishlist-item-single').remove();
+                } else {
+                    swal("Failed!", "Could not delete the item from the wishlist.", "warning");
+                }
+            }).fail(function() {
+                swal("Failed!", "Could not delete the item from the wishlist.", "warning");
+            });
+        }
+    })
+
     document.querySelector('#show-cart-btn').addEventListener('click', function (event) {
         event.preventDefault();
         getUserCartByUserID().done(function (response) {

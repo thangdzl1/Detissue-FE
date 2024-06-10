@@ -18,23 +18,23 @@ export function getAllProduct(size, page) {
     });
 }
 
-export function getProductByID(page, limit) {
+export function getProductByID() {
     return getAjax("product/1",
-            {
-                
-            },
-        ).done(function (response) {
-            return response;
-        }).fail(function (jqXHR) {
-            swal("Failed!", "warning");
-        })
+        {
+
+        },
+    ).done(function (response) {
+        return response;
+    }).fail(function (jqXHR) {
+        swal("Failed!", "warning");
+    })
 
 }
 
 export function findUserWishlist() {
     return getAjax("user-wishlist/user",
         {
-            
+
         },
         jwtToken
     ).done(function (response) {
@@ -44,33 +44,27 @@ export function findUserWishlist() {
     })
 }
 
-export function getDeleteUserWishlist(userId, productId) {
-    new Promise(() => {
-        getAjax("user-wishlist/delete",
-            {
-                userId: userId,
-                productId: productId
-            },
-        ).done(function (response) {
-            return response;
-        }).fail(function (jqXHR) {
-            swal("Failed!", "warning");
-        })
+export function DeleteUserWishlist(productId) {
+    return getAjax("user-wishlist/delete",
+        {
+            productId: productId
+        },
+    ).done(function (response) {
+        return response;
+    }).fail(function (jqXHR) {
+        swal("Failed!", "warning");
     })
 }
 
-export function getAddUserWishlist(userId, productId) {
-    new Promise(() => {
-        getAjax("user-wishlist/add",
-            {
-                userId: userId,
-                productId: productId
-            },
-        ).done(function (response) {
-            return response;
-        }).fail(function (jqXHR) {
-            swal("Failed!", "warning");
-        })
+export function AddUserWishlist(productId) {
+    return getAjax("user-wishlist/add",
+        {
+            productId: productId
+        },
+    ).done(function (response) {
+        return response;
+    }).fail(function (jqXHR) {
+        swal("Failed!", "warning");
     })
 }
 
@@ -78,7 +72,7 @@ export function getUserCartByUserID() {
     new Promise(() => {
         getAjax("shopping-cart/user",
             {
-                
+
             },
             jwtToken
         ).done(function (response) {
@@ -89,31 +83,26 @@ export function getUserCartByUserID() {
     })
 }
 
-export function getUserOrder(page, limit) {
-    new Promise(() => {
-        getAjax("shop-order/user",
-            {
-                page: page,
-                limit: limit
-            },
-        ).done(function (response) {
-            return response;
-        }).fail(function (jqXHR) {
-            swal("Failed!", "warning");
-        })
+export function getUserOrder() {
+    return getAjax("shop-order/user",
+        {
+
+        },
+    ).done(function (response) {
+        return response;
+    }).fail(function (jqXHR) {
+        swal("Failed!", "warning");
     })
 }
 
-export function postToGetAddressByUserID(id) {
-    new Promise(() => {
-        postAjax("user/address",
-            {
-                id: id
-            },
-        ).done(function (response) {
-            return response;
-        }).fail(function (jqXHR) {
-            swal("Failed!", "warning");
-        })
+export function GetAddressByUserID() {
+    return postAjax("user/address",
+        {
+
+        },
+    ).done(function (response) {
+        return response;
+    }).fail(function (jqXHR) {
+        swal("Failed!", "warning");
     })
 }
