@@ -1,4 +1,4 @@
-import { getAllProduct, getFindUserWishlist, getUserCartByUserID } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
+import { getAllProduct, findUserWishlist, getUserCartByUserID } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
 $(document).ready(function () {
     getAllProduct().done(function (response) {
         let placeholder = document.querySelector("#product-table"); //trỏ đến id của table
@@ -51,97 +51,59 @@ $(document).ready(function () {
 
     document.querySelector('#show-wishlist-btn').addEventListener('click', function (event) {
         event.preventDefault();
-        getFindUserWishlist().done(function (response) {
+        findUserWishlist().done(function (response) {
             let placeholder = document.querySelector("#wishlist-holder");
             let out = "";
-            for (let output of response.data) {
-                out += `<div id="offcanvas-wishlish" class="offcanvas offcanvas-rightside offcanvas-add-cart-section">
-            <!-- Start Offcanvas Header -->
-            <div class="offcanvas-header text-right">
-                <button class="offcanvas-close"><i class="ion-android-close"></i></button>
-            </div> <!-- ENd Offcanvas Header -->
-    
-            <!-- Start Offcanvas Mobile Menu Wrapper -->
-            <div class="offcanvas-wishlist-wrapper">
-                <h4 class="offcanvas-title">Wishlist</h4>
-                <ul class="offcanvas-wishlist">
-                    <li class="offcanvas-wishlist-item-single">
-                        <div class="offcanvas-wishlist-item-block">
-                            <a href="#" class="offcanvas-wishlist-item-image-link">
-                                <img src="${output.image}" alt=""
-                                    class="offcanvas-wishlist-image">
-                            </a>
-                            <div class="offcanvas-wishlist-item-content">
-                                <a href="#" class="offcanvas-wishlist-item-link">${output.name}</a>
-                                <div class="offcanvas-wishlist-item-details">
-                                    <span class="offcanvas-wishlist-item-details-quantity">1 x </span>
-                                    <span class="offcanvas-wishlist-item-details-price">$${output.priceMin}</span>
-                                </div>
+            let data = Array.isArray(response.data) ? response.data : [response.data];
+            console.log(data);
+            for (let output of data) {
+                out += `<li class="offcanvas-wishlist-item-single">
+                    <div class="offcanvas-wishlist-item-block">
+                        <a href="#" class="offcanvas-wishlist-item-image-link">
+                            <img src="assets/images/product/default/home-1/default-1.jpg" alt=""
+                                class="offcanvas-wishlist-image">
+                        </a>
+                        <div class="offcanvas-wishlist-item-content">
+                            <a href="#" class="offcanvas-wishlist-item-link">${output.name}</a>
+                            <div class="offcanvas-wishlist-item-details">
+                                <span class="offcanvas-wishlist-item-details-quantity">$${output.priceMin} - $${output.priceMin} </span>
                             </div>
                         </div>
-                        <div class="offcanvas-wishlist-item-delete text-right">
-                            <a href="#" class="offcanvas-wishlist-item-delete"><i class="fa fa-trash-o"></i></a>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="offcanvas-wishlist-action-button">
-                    <li><a href="#" class="btn btn-block btn-golden">View wishlist</a></li>
-                </ul>
-            </div> <!-- End Offcanvas Mobile Menu Wrapper -->
-    
-        </div> <!-- End Offcanvas Mobile Menu Section -->`;
+                    </div>
+                    <div class="offcanvas-wishlist-item-delete text-right">
+                        <a href="#" class="offcanvas-wishlist-item-delete"><i class="fa fa-trash-o"></i></a>
+                    </div>
+                </li>`;
             }
-            placeholder.innerHTML += out;
+            placeholder.innerHTML = out;
         });
     });
 
     document.querySelector('#show-cart-btn').addEventListener('click', function (event) {
         event.preventDefault();
         getUserCartByUserID().done(function (response) {
+            console.log(response.data);
             let placeholder = document.querySelector("#cart-holder");
             let out = "";
-            for (let output of response.data) {
-                out += `<!-- Start Offcanvas Addcart Section -->
-    <div id="offcanvas-add-cart" class="offcanvas offcanvas-rightside offcanvas-add-cart-section">
-        <!-- Start Offcanvas Header -->
-        <div class="offcanvas-header text-right">
-            <button class="offcanvas-close"><i class="ion-android-close"></i></button>
-        </div> <!-- End Offcanvas Header -->
-
-        <!-- Start  Offcanvas Addcart Wrapper -->
-        <div class="offcanvas-add-cart-wrapper" id="cart-holder">
-            <h4 class="offcanvas-title">Shopping Cart</h4>
-            <ul class="offcanvas-cart">
-                <li class="offcanvas-cart-item-single">
-                    <div class="offcanvas-cart-item-block">
-                        <a href="#" class="offcanvas-cart-item-image-link">
-                            <img src="${output.image}" alt=""
-                                class="offcanvas-cart-image">
+            let data = Array.isArray(response.data) ? response.data : [response.data];
+            for (let output of data) {
+                out += `<li class="offcanvas-wishlist-item-single">
+                    <div class="offcanvas-wishlist-item-block">
+                        <a href="#" class="offcanvas-wishlist-item-image-link">
+                            <img src="assets/images/product/default/home-1/default-1.jpg" alt=""
+                                class="offcanvas-wishlist-image">
                         </a>
-                        <div class="offcanvas-cart-item-content">
-                            <a href="#" class="offcanvas-cart-item-link">${output.name}</a>
-                            <div class="offcanvas-cart-item-details">
-                                <span class="offcanvas-cart-item-details-quantity">${output.quantity} x </span>
-                                <span class="offcanvas-cart-item-details-price">$${output.price}</span>
+                        <div class="offcanvas-wishlist-item-content">
+                            <a href="#" class="offcanvas-wishlist-item-link">${output.name}</a>
+                            <div class="offcanvas-wishlist-item-details">
+                                <span class="offcanvas-wishlist-item-details-quantity">$${output.priceMin} - $${output.priceMin} </span>
                             </div>
                         </div>
                     </div>
-                    <div class="offcanvas-cart-item-delete text-right">
-                        <a href="#" class="offcanvas-cart-item-delete"><i class="fa fa-trash-o"></i></a>
+                    <div class="offcanvas-wishlist-item-delete text-right">
+                        <a href="#" class="offcanvas-wishlist-item-delete"><i class="fa fa-trash-o"></i></a>
                     </div>
-                </li>
-            </ul>
-            <div class="offcanvas-cart-total-price">
-                <span class="offcanvas-cart-total-price-text">Subtotal:</span>
-                <span class="offcanvas-cart-total-price-value">$170.00</span>
-            </div>
-            <ul class="offcanvas-cart-action-button">
-                <li><a href="cart.html" class="btn btn-block btn-golden">View Cart</a></li>
-                <li><a href="compare.html" class=" btn btn-block btn-golden mt-5">Checkout</a></li>
-            </ul>
-        </div> <!-- End  Offcanvas Addcart Wrapper -->
-
-    </div> <!-- End  Offcanvas Addcart Section -->`;
+                </li>`;
             }
             placeholder.innerHTML += out;
         });

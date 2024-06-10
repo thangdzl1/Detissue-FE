@@ -19,22 +19,19 @@ export function getAllProduct(size, page) {
 }
 
 export function getProductByID(page, limit) {
-    new Promise(() => {
-        getAjax("product/1",
+    return getAjax("product/1",
             {
-                page: page,
-                limit: limit
+                
             },
         ).done(function (response) {
             return response;
         }).fail(function (jqXHR) {
             swal("Failed!", "warning");
         })
-    })
+
 }
 
-export function getFindUserWishlist() {
-    console.log(jwtToken)
+export function findUserWishlist() {
     return getAjax("user-wishlist/user",
         {
             
@@ -43,7 +40,7 @@ export function getFindUserWishlist() {
     ).done(function (response) {
         return response;
     }).fail(function (jqXHR) {
-        swal("Failed!", "warning");
+        console.log("Failed!", "warning");
     })
 }
 
@@ -77,13 +74,13 @@ export function getAddUserWishlist(userId, productId) {
     })
 }
 
-export function getUserCartByUserID(page, limit) {
+export function getUserCartByUserID() {
     new Promise(() => {
         getAjax("shopping-cart/user",
             {
-                page: page,
-                limit: limit
+                
             },
+            jwtToken
         ).done(function (response) {
             return response;
         }).fail(function (jqXHR) {
