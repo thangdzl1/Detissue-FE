@@ -1,5 +1,5 @@
 export const jwtToken = localStorage.getItem("token");//lấy token từ local storage
-export const url = "http://localhost:8080/"; //url của server
+export const url = "https://7ac8-171-250-165-250.ngrok-free.app/"; //url của server
 
 export function getAjax(endPoint, data = {}, jwtToken = "") {
   let headers = {
