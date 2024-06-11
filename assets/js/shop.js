@@ -1,54 +1,19 @@
 import { getAllProduct, findUserWishlist, getUserCartByUserID, deleteUserWishlist, deleteUserCart } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
 $(document).ready(function () {
-    getAllProduct().done(function (response) {
-        let placeholder = document.querySelector("#product-table"); //trỏ đến id của table
-        let out = "";
-        for (let output of response.data) {
-            // duyệt và tạo ra các button để lọc sản phẩm theo category
-            out += `<div class="product-default-single-item product-color--golden swiper-slide">
-                                        <div class="image-box">
-                                            <a href="product-details-default.html" class="image-link">
-                                                <img src="assets/images/product/default/home-1/default-1.jpg" alt="">
-                                            </a>
-                                            <div class="tag">
-                                                <span>sale</span>
-                                            </div>
-                                            <div class="action-link">
-                                                <div class="action-link-left">
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#modalAddcart">Add to Cart</a>
-                                                </div>
-                                                <div class="action-link-right">
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#modalQuickview"><i
-                                                            class="icon-magnifier"></i></a>
-                                                    <a href="wishlist.html"><i class="icon-heart"></i></a>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <div class="content-left">
-                                                <h6 class="title"><a href="product-details-default.html">${output.name}</a></h6>
-                                                <ul class="review-star">
-                                                    <li class="fill"><i class="ion-android-star"></i></li>
-                                                    <li class="fill"><i class="ion-android-star"></i></li>
-                                                    <li class="fill"><i class="ion-android-star"></i></li>
-                                                    <li class="fill"><i class="ion-android-star"></i></li>
-                                                    <li class="empty"><i class="ion-android-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <div class="content-right">
-                                                <span class="price">$${output.priceMin} - $${output.priceMax}</span>
-                                            </div>
-
-                                        </div>
-                                    </div>
-            `;
-        }
-        placeholder.innerHTML = out; // add the generated HTML to the product table
+    // Call the function up and count the number of items in the cart
+    getUserCartByUserID().done(function (response) {
+        // Ensure the response data is treated as an array
+        let data = Array.isArray(response.data) ? response.data : [response.data];
+        // Set the number of items in the cart
+        document.querySelector('#cart-count').textContent = data.length;
     });
-
+    // Call the function up and count the number of items in the wishlist
+    findUserWishlist().done(function (response) {
+        // Ensure the response data is treated as an array
+        let data = Array.isArray(response.data) ? response.data : [response.data];
+        // Set the number of items in the cart
+        document.querySelector('#wishlist-count').textContent = data.length;
+    });
     document.querySelector('#show-wishlist-btn').addEventListener('click', function (event) {
         event.preventDefault();
         findUserWishlist().done(function (response) {
@@ -64,7 +29,7 @@ $(document).ready(function () {
                     out += `<li class="offcanvas-wishlist-item-single">
                         <div class="offcanvas-wishlist-item-block">
                             <a href="#" class="offcanvas-wishlist-item-image-link">
-                                <img src="assets/images/product/default/home-1/default-1.jpg" alt=""
+                                <img src="${output.image}" alt=""
                                     class="offcanvas-wishlist-image">
                             </a>
                             <div class="offcanvas-wishlist-item-content">
@@ -112,7 +77,7 @@ $(document).ready(function () {
 
             // Ensure the response data is treated as an array
             let data = Array.isArray(response.data) ? response.data : [response.data];
-
+            let subTotal = 0; // Initialize a variable to store the total price of the cart items
             // Check if the cart is empty
             if (data.length == 0) {
                 out = `<li class="offcanvas-wishlist-item-single">
@@ -122,11 +87,12 @@ $(document).ready(function () {
             } else {
                 // Loop through each item in the data array
                 for (let output of data) {
+                    subTotal += output.price * output.quantity; // Calculate the total price of the cart items
                     // Append the HTML structure for each cart item to the output string
                     out += `<li class="offcanvas-wishlist-item-single">
                     <div class="offcanvas-wishlist-item-block">
                         <a href="#" class="offcanvas-wishlist-item-image-link">
-                            <img src="assets/images/product/default/home-1/default-1.jpg" alt=""
+                            <img src="${output.image}" alt=""
                                 class="offcanvas-wishlist-image">
                         </a>
                         <div class="offcanvas-wishlist-item-content">
@@ -142,7 +108,7 @@ $(document).ready(function () {
                 </li>`;
                 }
                 placeholder.innerHTML = out; // Insert the built HTML into the cart-holder element
-
+                document.querySelector('#cart-subtotal').textContent = `$${subTotal}.00`; // Display the total price of the cart items
                 // Attach the event listener for the delete buttons after the cart items are added to the DOM
                 document.querySelectorAll('.offcanvas-wishlist-item-delete').forEach(function (deleteButton) {
                     deleteButton.addEventListener('click', function (event) {
@@ -162,5 +128,4 @@ $(document).ready(function () {
             }
         });
     });
-
 });

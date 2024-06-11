@@ -184,13 +184,13 @@
                                 <li>
                                     <a href="#offcanvas-wishlish" class="offcanvas-toggle" id="show-wishlist-btn">
                                         <i class="icon-heart"></i>
-                                        <span class="item-count">3</span>
+                                        <span class="item-count" id ="wishlist-count">3</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#offcanvas-add-cart" class="offcanvas-toggle" id="show-cart-btn">
                                         <i class="icon-bag"></i>
-                                        <span class="item-count">3</span>
+                                        <span class="item-count" id ="cart-count">0</span>
                                     </a>
                                 </li>
                                 <li>
@@ -485,8 +485,8 @@
                 </li>
             </ul>
             <div class="offcanvas-cart-total-price">
-                <span class="offcanvas-cart-total-price-text">Subtotal:</span>
-                <span class="offcanvas-cart-total-price-value">$170.00</span>
+                <span class="offcanvas-cart-total-price-text" >Subtotal:</span>
+                <span class="offcanvas-cart-total-price-value" id="cart-subtotal">$170.00</span>
             </div>
             <ul class="offcanvas-cart-action-button">
                 <li><a href="cart.html" class="btn btn-block btn-golden">View Cart</a></li>
@@ -1485,7 +1485,6 @@
     <script src="assets/js/vendor/sweetalert.min.js"></script>
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
-    <script type="module" src="assets/js/shop.js"></script>
     <script type="module" src="assets/js/index.js"></script>
 </body>
 

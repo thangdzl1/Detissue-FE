@@ -1,4 +1,13 @@
-import { getAllProduct, findUserWishlist, getUserCartByUserID, deleteUserWishlist, deleteUserCart, getProductByID, getProductByCategory, addUserWishlist } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
+import {
+    getAllProduct,
+    findUserWishlist,
+    getUserCartByUserID,
+    deleteUserWishlist,
+    deleteUserCart,
+    getProductByID,
+    getProductByCategory,
+    addUserWishlist
+} from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
 $(document).ready(function () {
 
     getAllProduct().done(function (response) {
@@ -159,7 +168,7 @@ $(document).ready(function () {
 
             // Ensure the response data is treated as an array
             let data = Array.isArray(response.data) ? response.data : [response.data];
-
+            let subTotal = 0; // Initialize a variable to store the total price of the cart items
             // Check if the cart is empty
             if (data.length == 0) {
                 out = `<li class="offcanvas-wishlist-item-single">
@@ -169,6 +178,7 @@ $(document).ready(function () {
             } else {
                 // Loop through each item in the data array
                 for (let output of data) {
+                    subTotal += output.price * output.quantity; // Calculate the total price of the cart items
                     // Append the HTML structure for each cart item to the output string
                     out += `<li class="offcanvas-wishlist-item-single">
                     <div class="offcanvas-wishlist-item-block">
@@ -189,7 +199,7 @@ $(document).ready(function () {
                 </li>`;
                 }
                 placeholder.innerHTML = out; // Insert the built HTML into the cart-holder element
-
+                document.querySelector('#cart-subtotal').textContent = `$${subTotal}.00`; // Display the total price of the cart items
                 // Attach the event listener for the delete buttons after the cart items are added to the DOM
                 document.querySelectorAll('.offcanvas-wishlist-item-delete').forEach(function (deleteButton) {
                     deleteButton.addEventListener('click', function (event) {
@@ -216,8 +226,23 @@ $(document).ready(function () {
             console.log("Clicked on the heart icon.");
             const productId = event.target.closest('.image-box').getAttribute('productId');
             addUserWishlist(productId).then(response => {
-                response.data ? swal("Success!","Item added to wishlist.", "success") : swal("Could not add the item to the wishlist.");
+                response.data ? swal("Success!", "Item added to wishlist.", "success") : swal("Could not add the item to the wishlist.");
             });
         }
+    });
+
+    // Call the function up and count the number of items in the cart
+    getUserCartByUserID().done(function (response) {
+        // Ensure the response data is treated as an array
+        let data = Array.isArray(response.data) ? response.data : [response.data];
+        // Set the number of items in the cart
+        document.querySelector('#cart-count').textContent = data.length;
+    });
+    // Call the function up and count the number of items in the wishlist
+    findUserWishlist().done(function (response) {
+        // Ensure the response data is treated as an array
+        let data = Array.isArray(response.data) ? response.data : [response.data];
+        // Set the number of items in the cart
+        document.querySelector('#wishlist-count').textContent = data.length;
     });
 });
