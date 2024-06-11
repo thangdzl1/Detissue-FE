@@ -23,7 +23,7 @@ $(document).ready(function () {
                                                         data-bs-target="#modalQuickview"><i
                                                             class="icon-magnifier"></i></a>
                                                     <a href="wishlist.html"><i class="icon-heart"></i></a>
-                                                    <a href="compare.html"><i class="icon-shuffle"></i></a>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
