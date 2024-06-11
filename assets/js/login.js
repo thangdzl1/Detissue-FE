@@ -48,17 +48,19 @@ $(document).ready(function () {
             var fullname = $("#register-fullname").val();
             var phoneNumber = $("#register-phone-number").val();
 
+            console.log(username, password, repeatPassword, email, fullname, phoneNumber);
+
             if (!username || !password || !repeatPassword || !email || !fullname || !phoneNumber) {
                 swal("Failed", "Please fill in the blank", "warning");
                 return;
             }
             
             if (password != repeatPassword) {
-                swal("Error!", "Password are not the same!")
+                swal("Error!", "Password are not the same!", "warning")
                 return;
             }
 
-            postAjax("user/register",
+            postAjax("user/signup",
                 {
                     username: username,
                     password: password,
@@ -66,14 +68,15 @@ $(document).ready(function () {
                     fullname: fullname,
                     phoneNumber: phoneNumber
                 },
-            ).done(function (msg) {
+            ).done(function (response) {
+                console.log(response);
                 swal("Success", "Register successfully!", "success")
                     .then(() => {
-                        window.location.href = "login.html"
+                        window.location.href = "index.html"
                     });
             })
-                .fail(function () {
-                    swal("Failed!", "Register failed!", "warning");
+                .fail(function (response) {
+                    swal("Failed!", response.responseJSON.message, "warning");
                 });
         })
     })

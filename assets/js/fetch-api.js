@@ -4,7 +4,7 @@ import { getAjax, postAjax, jwtToken } from './api-ajax.js';//import các hàm g
 export function getAllProduct(size, page) {
     console.log(jwtToken)
     page = 0;
-    size = 3;
+    size = 10;
     return getAjax("product",
         {
             page: page,
@@ -60,6 +60,7 @@ export function addUserWishlist(productId) {
         {
             productId: productId
         },
+        jwtToken
     ).done(function (response) {
         return response;
     }).fail(function (jqXHR) {
@@ -112,5 +113,33 @@ export function getAddressByUserID() {
         return response;
     }).fail(function (jqXHR) {
         swal("Failed!", "warning");
+    })
+}
+
+export function getProductByCategory() {
+    console.log('getProductByCategory is called');
+    return getAjax("product/category",
+        {
+            page: 0,
+            size: 10,
+            id : 5
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
+    }).fail(function (jqXHR) {
+        swal("Failed!", "warning");
+    })
+}
+
+export function getProductById(id) {
+    return getAjax("product/category/"+id,
+        {
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
+    }).fail(function (response) {
+        swal("Failed!", "warning",response.responseJSON.message);
     })
 }
