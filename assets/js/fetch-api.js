@@ -55,7 +55,7 @@ export function deleteUserWishlist(productId) {
     })
 }
 
-export function AddUserWishlist(productId) {
+export function addUserWishlist(productId) {
     return getAjax("user-wishlist/add",
         {
             productId: productId
@@ -68,17 +68,26 @@ export function AddUserWishlist(productId) {
 }
 
 export function getUserCartByUserID() {
-    new Promise(() => {
-        getAjax("shopping-cart/user",
-            {
+    return getAjax("shopping-cart/user",
+        {
 
-            },
-            jwtToken
-        ).done(function (response) {
-            return response;
-        }).fail(function (jqXHR) {
-            swal("Failed!", "warning");
-        })
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
+    }).fail(function (jqXHR) {
+        swal("Failed!", "warning");
+    })
+}
+
+export function deleteUserCart(id) {
+    return getAjax("user-wishlist/delete",
+        {
+            id: id
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
     })
 }
 
@@ -94,7 +103,7 @@ export function getUserOrder() {
     })
 }
 
-export function GetAddressByUserID() {
+export function getAddressByUserID() {
     return postAjax("user/address",
         {
 
