@@ -17485,6 +17485,12 @@ table {
 .faq-content .title {
     margin-bottom: 16px;
     font-weight: 700;
+    font-size: 24px;
+}
+
+.faq-content p {
+    font-size: 18px;
+    color: #000;
 }
 
 .faq-accordian {
@@ -17496,6 +17502,8 @@ table {
 
 .faq-accordian-single-item {
     margin-bottom: 15px;
+    font-size: 16px;
+    color:#000;
 }
 
 .faq-accordian label {
@@ -17508,7 +17516,7 @@ table {
     border: 1px solid #ededed;
     color: #222;
     line-height: 1.6;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
 }
 

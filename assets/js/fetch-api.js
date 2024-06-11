@@ -81,7 +81,7 @@ export function getUserCartByUserID() {
 }
 
 export function deleteUserCart(id) {
-    return getAjax("user-wishlist/delete",
+    return getAjax("shopping-cart/delete",
         {
             id: id
         },
