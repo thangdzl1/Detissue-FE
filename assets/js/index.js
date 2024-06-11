@@ -132,7 +132,7 @@ $(document).ready(function () {
                         <div class="offcanvas-wishlist-item-content">
                             <a href="#" class="offcanvas-wishlist-item-link">${output.name}</a>
                             <div class="offcanvas-wishlist-item-details">
-                                <span class="offcanvas-wishlist-item-details-quantity">$${output.priceMin} - $${output.priceMin} </span>
+                                <span class="offcanvas-wishlist-item-details-quantity">${output.quantity} x $${output.price} </span>
                             </div>
                         </div>
                     </div>
