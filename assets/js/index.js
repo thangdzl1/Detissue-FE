@@ -8,7 +8,8 @@ import {
     getProductByCategory,
     addUserWishlist,
     getProductSkusByProductId,
-    getAttributeOption
+    getAttributeOption,
+    addProductToCart
 } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
 $(document).ready(function () {
     // Call the function up and count the number of items in the cart
@@ -283,7 +284,7 @@ $(document).ready(function () {
                     </div>
                 `;
                 quickViewProduct.innerHTML = `
-                    <h4 class="title">${data.name}</h4>
+                    <h4 class="title" productId="${data.id}">${data.name}</h4>
                     <div class="price">$${data.priceMin} - ${data.priceMax}</div>
                 `
                 quickViewDesc.innerHTML = `
@@ -306,5 +307,19 @@ $(document).ready(function () {
         }
     });
 
+    document.querySelector('body').addEventListener('click', event => {
+        if (event.target.matches('#add-to-cart')) {
+            event.preventDefault();
+            const productId = event.target.closest('.modal-product-details-content-area').querySelector('.title').getAttribute('productid');
+            const quantity = document.querySelector('#quick-view-quantity').value;
+            const colorId = document.querySelector('input[name="modal-product-color"]:checked').nextElementSibling.getAttribute('color-id');
+            console.log(productId, quantity, colorId);
+            addProductToCart(productId, colorId, quantity).then(response => {
+                if(!response.data) swal("Failed!", "Could not add the item to the cart.", "warning");
+                calculateNumberCart();
+            });
+        }
+    });
 
+    
 });
