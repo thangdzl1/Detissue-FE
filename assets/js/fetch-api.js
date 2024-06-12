@@ -18,19 +18,6 @@ export function getAllProduct(size, page) {
     });
 }
 
-export function getProductByID() {
-    return getAjax("product/1",
-        {
-
-        },
-    ).done(function (response) {
-        return response;
-    }).fail(function (jqXHR) {
-        swal("Failed!", "warning");
-    })
-
-}
-
 export function findUserWishlist() {
     return getAjax("user-wishlist/user",
         {
@@ -117,7 +104,6 @@ export function getAddressByUserID() {
 }
 
 export function getProductByCategory() {
-    console.log('getProductByCategory is called');
     return getAjax("product/category",
         {
             page: 0,
@@ -133,8 +119,47 @@ export function getProductByCategory() {
 }
 
 export function getProductById(id) {
-    return getAjax("product/category/"+id,
+    return getAjax("product/"+id,
         {
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
+    }).fail(function (response) {
+        swal("Failed!", "warning",response.responseJSON.message);
+    })
+}
+export function getProductSkusByProductId(id) {
+    return getAjax("product-skus/product",
+        {
+            id: id
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
+    }).fail(function (response) {
+        swal("Failed!", "warning",response.responseJSON.message);
+    })
+}
+export function getAttributeOption(productId, attributeId) {
+    return getAjax("attribute-options",
+        {
+            productId: productId,
+            attributeId: attributeId
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
+    }).fail(function (response) {
+        swal("Failed!", "warning",response.responseJSON.message);
+    })
+}
+export function addProductToCart(productId,attributOptionsId, quantity) {
+    return getAjax("shopping-cart/add",
+        {
+            productId: productId,
+            attributOptionsId: attributOptionsId,
+            quantity: quantity
         },
         jwtToken
     ).done(function (response) {

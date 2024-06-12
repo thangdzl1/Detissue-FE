@@ -4,11 +4,34 @@ import {
     getUserCartByUserID,
     deleteUserWishlist,
     deleteUserCart,
-    getProductByID,
+    getProductById,
     getProductByCategory,
-    addUserWishlist
+    addUserWishlist,
+    getProductSkusByProductId,
+    getAttributeOption
 } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
 $(document).ready(function () {
+    // Call the function up and count the number of items in the cart
+    function calculateNumberCart() {
+        getUserCartByUserID().done(function (response) {
+            // Ensure the response data is treated as an array
+            let data = Array.isArray(response.data) ? response.data : [response.data];
+            // Set the number of items in the cart
+            document.querySelector('#cart-count').textContent = data.length;
+        });
+    }
+    // Call the function up and count the number of items in the wishlist
+    function calculateNumberWishlist() {
+        findUserWishlist().done(function (response) {
+            // Ensure the response data is treated as an array
+            let data = Array.isArray(response.data) ? response.data : [response.data];
+            // Set the number of items in the cart
+            document.querySelector('#wishlist-count').textContent = data.length;
+        });
+    }
+    calculateNumberCart();
+    calculateNumberWishlist();
+
 
     getAllProduct().done(function (response) {
         let placeholder = document.querySelector("#product-table"); //trỏ đến id của table
@@ -31,7 +54,7 @@ $(document).ready(function () {
                                                 <div class="action-link-right">
                                                     <a href="#" data-bs-toggle="modal"
                                                         data-bs-target="#modalQuickview"><i
-                                                            class="icon-magnifier"></i></a>
+                                                            class="icon-magnifier" id="quick-view-icon"></i></a>
                                                     <a href="#"><i class="icon-heart"></i></a>
                                                     
                                                 </div>
@@ -62,7 +85,6 @@ $(document).ready(function () {
     getProductByCategory().done(function (response) {
         let placeholder = document.querySelector("#best-seller"); //trỏ đến id của table
         let out = "";
-        console.log(response.data);
         for (let output of response.data) {
             // duyệt và tạo ra các button để lọc sản phẩm theo category
             out += `<div class="product-default-single-item product-color--golden swiper-slide">
@@ -142,7 +164,7 @@ $(document).ready(function () {
                     deleteButton.addEventListener('click', function (event) {
                         event.preventDefault();
                         let productId = event.currentTarget.getAttribute('wishlist-id');
-                        console.log(productId);
+                        calculateNumberWishlist();
                         deleteUserWishlist(productId).done(function (response) {
                             console.log(response.data);
                             if (response.data) {
@@ -155,6 +177,7 @@ $(document).ready(function () {
                 });
             }
         });
+        calculateNumberWishlist();
     });
 
     // Attach an event listener to the element with ID 'show-cart-btn'
@@ -207,8 +230,8 @@ $(document).ready(function () {
                         let productId = event.currentTarget.getAttribute('cart-id'); // Get the cart item ID
                         console.log(productId);
                         deleteUserCart(productId).done(function (response) { // Call function to delete cart item
-                            console.log(response.data);
                             if (response.data) {
+                                calculateNumberCart();
                                 event.target.closest('.offcanvas-wishlist-item-single').remove(); // Remove the item from the DOM
                             } else {
                                 swal("Failed!", "Could not delete the item from the cart.", "warning");
@@ -220,29 +243,68 @@ $(document).ready(function () {
         });
     });
 
+    // Attach an event listener to the body element to listen for clicks on the heart icon
     document.querySelector('body').addEventListener('click', event => {
         if (event.target.matches('.icon-heart')) {
             event.preventDefault();
-            console.log("Clicked on the heart icon.");
             const productId = event.target.closest('.image-box').getAttribute('productId');
             addUserWishlist(productId).then(response => {
                 response.data ? swal("Success!", "Item added to wishlist.", "success") : swal("Could not add the item to the wishlist.");
             });
+            calculateNumberWishlist();
         }
     });
 
-    // Call the function up and count the number of items in the cart
-    getUserCartByUserID().done(function (response) {
-        // Ensure the response data is treated as an array
-        let data = Array.isArray(response.data) ? response.data : [response.data];
-        // Set the number of items in the cart
-        document.querySelector('#cart-count').textContent = data.length;
+    // Attach an event listener to the body element to listen for clicks on the quick view icon
+    document.querySelector('body').addEventListener('click', event => {
+        if (event.target.matches('#quick-view-icon')) {
+            event.preventDefault();
+            let productId = event.target.closest('.image-box').getAttribute('productId');
+
+            let largeImagePlaceholder = document.querySelector("#quick-view-large-image"); //trỏ đến id của table
+            let thumNailPlaceholder = document.querySelector("#quick-view-thumbnail"); //trỏ đến id của table
+            let quickViewProduct = document.querySelector("#quick-view-product"); //trỏ đến id của table
+            let quickViewColor = document.querySelector("#quick-view-color"); //trỏ đến id của table
+            let quickViewDesc = document.querySelector("#quick-view-desc"); //trỏ đến id của table
+
+            getProductById(productId).then(response => {
+                let data = response.data;
+                //Tạo large image
+                thumNailPlaceholder.innerHTML = `
+                    <div class="product-image-large-image swiper-slide img-responsive">
+                        <img src="${data.image}" alt="">
+                    </div>
+                `;
+
+                largeImagePlaceholder.innerHTML = `
+                    <div class="product-image-thumb-single swiper-slide" >
+                        <img class="img-fluid"
+                            src="${data.image}" alt="">
+                    </div>
+                `;
+                quickViewProduct.innerHTML = `
+                    <h4 class="title">${data.name}</h4>
+                    <div class="price">$${data.priceMin} - ${data.priceMax}</div>
+                `
+                quickViewDesc.innerHTML = `
+                    <p>${data.shortDesc}</p>
+                `;
+            });
+            getAttributeOption(productId, 1).then(response => {
+                let data = response.data;
+                let out = "";
+                for (let output of data) {
+                    out += `<label for="modal-product-color-${output.value}">
+                    <input name="modal-product-color" id="modal-product-color-${output.value}"
+                        class="color-select" type="radio" checked>
+                    <span class="product-color-${output.value}" color-id="${output.id}"></span>
+                </label>`;
+                }
+                quickViewColor.innerHTML = out;
+            })
+            
+        }
     });
-    // Call the function up and count the number of items in the wishlist
-    findUserWishlist().done(function (response) {
-        // Ensure the response data is treated as an array
-        let data = Array.isArray(response.data) ? response.data : [response.data];
-        // Set the number of items in the cart
-        document.querySelector('#wishlist-count').textContent = data.length;
-    });
+
+
 });
