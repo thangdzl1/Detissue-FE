@@ -50,7 +50,7 @@ $(document).ready(function () {
                                             <div class="action-link">
                                                 <div class="action-link-left">
                                                     <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#modalAddcart">Add to Cart</a>
+                                                        data-bs-target="#modalAddcart" id ="add-to-cart-btn">Add to Cart</a>
                                                 </div>
                                                 <div class="action-link-right">
                                                     <a href="#" data-bs-toggle="modal"
@@ -308,7 +308,7 @@ $(document).ready(function () {
     });
 
     document.querySelector('body').addEventListener('click', event => {
-        if (event.target.matches('#add-to-cart')) {
+        if (event.target.matches('#add-to-cart-view-modal')) {
             event.preventDefault();
             const productId = event.target.closest('.modal-product-details-content-area').querySelector('.title').getAttribute('productid');
             const quantity = document.querySelector('#quick-view-quantity').value;
@@ -321,5 +321,18 @@ $(document).ready(function () {
         }
     });
 
-    
+    document.querySelector('body').addEventListener('click', event => {
+        if (event.target.matches('#add-to-cart-btn')) {
+            event.preventDefault();
+            const productId = event.target.closest('.image-box').getAttribute('productId');
+            const quantity = 1;
+            const colorId = 0;
+            console.log(productId, quantity, colorId);
+            addProductToCart(productId, colorId, quantity).then(response => {
+                if(!response.data) swal("Failed!", "Could not add the item to the cart.", "warning");
+                calculateNumberCart();
+            });
+        }
+    });
+
 });

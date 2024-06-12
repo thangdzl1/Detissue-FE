@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>HONO - Multi Purpose HTML Template</title>
+    <title>DeTissue</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
     <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">
@@ -578,7 +578,7 @@
                     <div class="col-12">
                         <div class="table_desc">
                             <div class="table_page table-responsive">
-                                <table>
+                                <table >
                                     <!-- Start Cart Table Head -->
                                     <thead>
                                         <tr>
@@ -590,7 +590,7 @@
                                             <th class="product_total">Total</th>
                                         </tr>
                                     </thead> <!-- End Cart Table Head -->
-                                    <tbody>
+                                    <tbody id ="cart-table">
                                         <!-- Start Cart Single Item-->
                                         <tr>
                                             <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
@@ -633,7 +633,7 @@
                             <div class="coupon_inner">
                                 <div class="cart_subtotal">
                                     <p>Subtotal</p>
-                                    <p class="cart_amount">$215.00</p>
+                                    <p class="cart_amount" id ="cart-subtotal">$215.00</p>
                                 </div>
                                 <div class="cart_subtotal ">
                                     <p>Shipping</p>
@@ -1002,6 +1002,7 @@
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
     <script type="module" src="assets/js/shop.js"></script>
+    <script type="module" src="assets/js/cart.js"></script>
 </body>
 
 <!-- Mirrored from htmldemo.hasthemes.com/hono/hono/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 06 Jan 2021 00:32:24 GMT -->
