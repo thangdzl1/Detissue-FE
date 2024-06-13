@@ -2,6 +2,7 @@ export const jwtToken = localStorage.getItem("token");//lấy token từ local s
 export const url = "http://localhost:8080/"; //url của server
 
 export function getAjax(endPoint, data = {}, jwtToken = "") {
+
   let headers = {
     'Accept': 'application/json, text/plain, */*',
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -14,11 +15,11 @@ export function getAjax(endPoint, data = {}, jwtToken = "") {
   return $.ajax({
     method: "get",
     url: url + endPoint,
+
     data: data,
     headers: headers
   })
 }
-
 export function postAjax(endPoint, data = {}, jwtToken = "") {
   let headers = {
     'Accept': 'application/json, text/plain, */*',
