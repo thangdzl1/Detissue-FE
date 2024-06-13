@@ -54,7 +54,6 @@ $(document).ready(function () {
                 swal("Failed", "Please fill in the blank", "warning");
                 return;
             }
-            
             if (password != repeatPassword) {
                 swal("Error!", "Password are not the same!", "warning")
                 return;
