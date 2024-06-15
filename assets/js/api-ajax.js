@@ -1,6 +1,8 @@
-export const jwtToken = localStorage.getItem("token");
-export const url = "http://localhost:8080";
-export function getAjax(data = {}, jwtToken = "") {
+export const jwtToken = localStorage.getItem("token");//lấy token từ local storage
+export const url = "http://localhost:8080/"; //url của server
+
+export function getAjax(endPoint, data = {}, jwtToken = "") {
+
   let headers = {
     'Accept': 'application/json, text/plain, */*',
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -12,12 +14,13 @@ export function getAjax(data = {}, jwtToken = "") {
   // ajax cho phép gọi đường dẫn ngầm và lấy giá trị của đường dẫn đó
   return $.ajax({
     method: "get",
-    url: url,
+    url: url + endPoint,
+
     data: data,
     headers: headers
   })
 }
-export function postAjax(data = {}, jwtToken = "") {
+export function postAjax(endPoint, data = {}, jwtToken = "") {
   let headers = {
     'Accept': 'application/json, text/plain, */*',
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -29,7 +32,7 @@ export function postAjax(data = {}, jwtToken = "") {
 
   return $.ajax({
     method: "POST",
-    url: url,
+    url: url + endPoint,
     data: data,
     headers: headers
   });

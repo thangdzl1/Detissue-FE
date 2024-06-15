@@ -14968,6 +14968,12 @@ input {
     text-align: right;
     transform: translateY(30px);
 }
+.banner-style-3 .img-fluid {
+
+    width: 1043px;
+    height: 700px;
+
+}
 @media (min-width: 576px) {
     .banner-style-3 .content {
         transform: translateY(70px);
@@ -16098,6 +16104,7 @@ input {
 .default-form-box input[type=password],
 .default-form-box input[type=number],
 .default-form-box input[type=date],
+.default-form-box input[type=tel],
 .default-form-box textarea {
     border: 1px solid #ededed;
     border-radius: 3px;
@@ -16113,6 +16120,7 @@ input {
 .default-form-box input[type=password]::placeholder,
 .default-form-box input[type=number]::placeholder,
 .default-form-box input[type=date]::placeholder,
+.default-form-box input[type=tel]::placeholder,
 .default-form-box textarea::placeholder {
     font-size: 14px;
 }
@@ -16121,12 +16129,19 @@ input {
 .default-form-box input[type=password]:focus,
 .default-form-box input[type=number]:focus,
 .default-form-box input[type=date]:focus,
+.default-form-box input[type=tel]:focus,
 .default-form-box textarea:focus {
     border-color: #b19361;
 }
 .default-form-box textarea {
     height: 200px;
     padding: 20px;
+}
+
+.error-message {
+    color: red;
+    display: none;
+    margin-top: 5px;
 }
 
 .default-search-style {
@@ -17470,6 +17485,12 @@ table {
 .faq-content .title {
     margin-bottom: 16px;
     font-weight: 700;
+    font-size: 24px;
+}
+
+.faq-content p {
+    font-size: 18px;
+    color: #000;
 }
 
 .faq-accordian {
@@ -17481,6 +17502,8 @@ table {
 
 .faq-accordian-single-item {
     margin-bottom: 15px;
+    font-size: 16px;
+    color:#000;
 }
 
 .faq-accordian label {
@@ -17493,7 +17516,7 @@ table {
     border: 1px solid #ededed;
     color: #222;
     line-height: 1.6;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
 }
 
@@ -18145,7 +18168,7 @@ Pages - Contact
 
 .mega-menu-inner {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .mega-menu-item-title {
@@ -18787,7 +18810,7 @@ Pages - Contact
 }
 .mobile-contact-info .logo {
     margin: 0 auto;
-    width: 100px;
+    width: 120px;
 }
 .mobile-contact-info .logo img {
     width: 100%;
