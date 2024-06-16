@@ -51,7 +51,24 @@ $(document).ready(function () {
         });
     }
 
+    // Function to attach deny event
+    function attachDenyEvent() {
+        $('.btn-deny').off('click').on('click', function () {
+            var row = dataTable.row($(this).closest('tr'));
+            var rowData = row.data();
+
+            var denyStatus = 'Denied';
+
+            // Update row status to 'Denied'
+            rowData[5] = denyStatus;
+            row.data(rowData).draw(false);
+
+            attachDetailEvent();
+        });
+    }
+
     // Attach events to existing buttons
     attachDetailEvent();
     attachStatusEvent();
+    attachDenyEvent();
 });
