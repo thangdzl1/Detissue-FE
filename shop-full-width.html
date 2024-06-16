@@ -632,7 +632,7 @@
                                         <!-- Start Grid View Product -->
                                         <div class="tab-pane active show sort-layout-single" id="layout-4-grid">
                                             <div class="row">
-                                                <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                                                <div class="col-xl-3 col-lg-4 col-sm-6 col-12" id ="product-grid-view">
                                                     <!-- Start Product Default Single Item -->
                                                     <div class="product-default-single-item product-color--golden"
                                                         data-aos="fade-up" data-aos-delay="0">
@@ -687,8 +687,9 @@
                                         </div> <!-- End Grid View Product -->
                                         <!-- Start List View Product -->
                                         <div class="tab-pane sort-layout-single" id="layout-list">
-                                            <div class="row">
-                                                <div class="col-12">
+                                            <div class="row" id="product-list-view">
+                                                
+                                                
                                                     <!-- Start Product Defautlt Single -->
                                                     <div class="product-list-single product-color--golden">
                                                         <a href="product-details-default.html"
@@ -1146,56 +1147,16 @@
                                 <div class="product-details-gallery-area mb-7">
                                     <!-- Start Large Image -->
                                     <div class="product-large-image modal-product-image-large swiper-container">
-                                        <div class="swiper-wrapper">
-                                            <div class="product-image-large-image swiper-slide img-responsive">
-                                                <img src="assets/images/product/default/home-1/default-1.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-large-image swiper-slide img-responsive">
-                                                <img src="assets/images/product/default/home-1/default-2.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-large-image swiper-slide img-responsive">
-                                                <img src="assets/images/product/default/home-1/default-3.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-large-image swiper-slide img-responsive">
-                                                <img src="assets/images/product/default/home-1/default-4.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-large-image swiper-slide img-responsive">
-                                                <img src="assets/images/product/default/home-1/default-5.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-large-image swiper-slide img-responsive">
-                                                <img src="assets/images/product/default/home-1/default-6.jpg" alt="">
-                                            </div>
+                                        <div class="swiper-wrapper" id="quick-view-large-image">
+
                                         </div>
                                     </div>
                                     <!-- End Large Image -->
                                     <!-- Start Thumbnail Image -->
                                     <div
                                         class="product-image-thumb modal-product-image-thumb swiper-container pos-relative mt-5">
-                                        <div class="swiper-wrapper">
-                                            <div class="product-image-thumb-single swiper-slide">
-                                                <img class="img-fluid"
-                                                    src="assets/images/product/default/home-1/default-1.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-thumb-single swiper-slide">
-                                                <img class="img-fluid"
-                                                    src="assets/images/product/default/home-1/default-2.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-thumb-single swiper-slide">
-                                                <img class="img-fluid"
-                                                    src="assets/images/product/default/home-1/default-3.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-thumb-single swiper-slide">
-                                                <img class="img-fluid"
-                                                    src="assets/images/product/default/home-1/default-4.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-thumb-single swiper-slide">
-                                                <img class="img-fluid"
-                                                    src="assets/images/product/default/home-1/default-5.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-thumb-single swiper-slide">
-                                                <img class="img-fluid"
-                                                    src="assets/images/product/default/home-1/default-6.jpg" alt="">
-                                            </div>
+                                        <div class="swiper-wrapper" id="quick-view-thumbnail">
+
                                         </div>
                                         <!-- Add Arrows -->
                                         <div class="gallery-thumb-arrow swiper-button-next"></div>
@@ -1207,48 +1168,24 @@
                             <div class="col-md-6">
                                 <div class="modal-product-details-content-area">
                                     <!-- Start  Product Details Text Area-->
-                                    <div class="product-details-text">
+                                    <div class="product-details-text" id="quick-view-product">
                                         <h4 class="title">Nonstick Dishwasher PFOA</h4>
                                         <div class="price"><del>$70.00</del>$80.00</div>
                                     </div> <!-- End  Product Details Text Area-->
                                     <!-- Start Product Variable Area -->
                                     <div class="product-details-variable">
                                         <!-- Product Variable Single Item -->
-                                        <div class="variable-single-item">
-                                            <span>Color</span>
-                                            <div class="product-variable-color">
-                                                <label for="modal-product-color-red">
-                                                    <input name="modal-product-color" id="modal-product-color-red"
-                                                        class="color-select" type="radio" checked>
-                                                    <span class="product-color-red"></span>
-                                                </label>
-                                                <label for="modal-product-color-tomato">
-                                                    <input name="modal-product-color" id="modal-product-color-tomato"
-                                                        class="color-select" type="radio">
-                                                    <span class="product-color-tomato"></span>
-                                                </label>
-                                                <label for="modal-product-color-green">
-                                                    <input name="modal-product-color" id="modal-product-color-green"
-                                                        class="color-select" type="radio">
-                                                    <span class="product-color-green"></span>
-                                                </label>
-                                                <label for="modal-product-color-light-green">
-                                                    <input name="modal-product-color"
-                                                        id="modal-product-color-light-green" class="color-select"
-                                                        type="radio">
-                                                    <span class="product-color-light-green"></span>
-                                                </label>
-                                                <label for="modal-product-color-blue">
-                                                    <input name="modal-product-color" id="modal-product-color-blue"
-                                                        class="color-select" type="radio">
-                                                    <span class="product-color-blue"></span>
-                                                </label>
-                                                <label for="modal-product-color-light-blue">
-                                                    <input name="modal-product-color"
-                                                        id="modal-product-color-light-blue" class="color-select"
-                                                        type="radio">
-                                                    <span class="product-color-light-blue"></span>
-                                                </label>
+                                        <div class="d-flex align-items-center flex-wrap">
+                                            <div class="variable-single-item">
+                                                <span>Size</span>
+                                                <select id="quick-view-size">
+                                                    <!-- <option selected value="1"> size in option</option>
+                                                    <option value="2">s</option>
+                                                    <option value="3">m</option>
+                                                    <option value="4">l</option>
+                                                    <option value="5">xl</option>
+                                                    <option value="6">xxl</option> -->
+                                                </select>
                                             </div>
                                         </div>
                                         <!-- Product Variable Single Item -->
@@ -1256,17 +1193,19 @@
                                             <div class="variable-single-item ">
                                                 <span>Quantity</span>
                                                 <div class="product-variable-quantity">
-                                                    <input min="1" max="100" value="1" type="number">
+                                                    <input min="1" max="100" value="1" type="number"
+                                                        id="quick-view-quantity">
                                                 </div>
                                             </div>
 
                                             <div class="product-add-to-cart-btn">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart">Add To
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"
+                                                    id="add-to-cart-view-modal">Add To
                                                     Cart</a>
                                             </div>
                                         </div>
                                     </div> <!-- End Product Variable Area -->
-                                    <div class="modal-product-about-text">
+                                    <div class="modal-product-about-text" id="quick-view-desc">
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste
                                             laborum ad impedit pariatur esse optio tempora sint ullam autem deleniti nam
                                             in quos qui nemo ipsum numquam, reiciendis maiores quidem aperiam, rerum vel
@@ -1322,6 +1261,7 @@
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
     <script type="module" src="assets/js/shop.js"></script>
+    <script type="module" src="assets/js/shop-full-width.js"></script>
 </body>
 
 <!-- Mirrored from htmldemo.hasthemes.com/hono/hono/shop-full-width.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 06 Jan 2021 00:32:24 GMT -->

@@ -85,7 +85,7 @@ $(document).ready(function () {
         placeholder.innerHTML = out; // add the generated HTML to the product table
     });
 
-    getProductByCategory().done(function (response) {
+    getProductByCategory(5).done(function (response) {
         let placeholder = document.querySelector("#best-seller"); //trỏ đến id của table
         let out = "";
         for (let output of response.data) {

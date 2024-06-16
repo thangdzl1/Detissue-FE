@@ -103,12 +103,13 @@ export function getAddressByUserID() {
     })
 }
 
-export function getProductByCategory() {
+export function getProductByCategory(id) {
+    console.log(id)
     return getAjax("product/category",
         {
             page: 0,
-            size: 10,
-            id : 1
+            size: 5,
+            id : id
         },
         jwtToken
     ).done(function (response) {
@@ -165,5 +166,19 @@ export function addProductToCart(productId,sizeId, quantity) {
         return response;
     }).fail(function (response) {
         console.log("Failed!", "warning",response.responseJSON.message);
+    })
+}
+export function findProductBySearch(search) {
+    return getAjax("product/search",
+        {
+            size: 10,
+            page: 0,
+            keyword: search
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
+    }).fail(function (response) {
+        swal("Failed!", "warning",response.responseJSON.message);
     })
 }
