@@ -210,3 +210,18 @@ export function updateUserDetail(fullname, username, email, phone, birthday, pas
         swal("Failed!", response.responseJSON.message, "warning");
     })
 }
+export function createShopOrder(paymentMethodId, shippingAddressId, note) {
+    return postAjax("shop-order/add",
+        {
+            paymentMethodId: paymentMethodId,
+            shippingAddressId: shippingAddressId,
+            note: note
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
+    }).fail(function (response) {
+        console.log(response);
+        swal("Failed!", response.responseJSON.message, "warning");
+    })
+}
