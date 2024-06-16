@@ -37,14 +37,6 @@
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css">
     <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
 
-    <style>
-        /* Add your custom styles here */
-        .swiper-slide img {
-            /* width: 100%; */
-            height: auto;
-            max-width: 100%;
-        }
-    </style>
 </head>
 
 <body>
@@ -113,10 +105,14 @@
                                                     <li class="mega-menu-item">
                                                         <a href="#" class="mega-menu-item-title">Product Types</a>
                                                         <ul class="mega-menu-sub">
-                                                            <li><a href="clothing.html">Clothing</a></li>
-                                                            <li><a href="clothing.html">Shoes</a></li>
-                                                            <li><a href="clothing.html">Hat</a></li>
-                                                            <li><a href="clothing.html">Accessories</a></li>
+                                                            <li><a href="shop-full-width.html?categoryId=1">Clothing</a>
+                                                            </li>
+                                                            <li><a href="shop-full-width.html?categoryId=2">Shoes</a>
+                                                            </li>
+                                                            <li><a href="shop-full-width.html?categoryId=3">Hat</a></li>
+                                                            <li><a
+                                                                    href="shop-full-width.html?categoryId=4">Accessories</a>
+                                                            </li>
                                                         </ul>
                                                     </li>
                                                     <!-- Mega Menu Sub Link -->
@@ -184,13 +180,13 @@
                                 <li>
                                     <a href="#offcanvas-wishlish" class="offcanvas-toggle" id="show-wishlist-btn">
                                         <i class="icon-heart"></i>
-                                        <span class="item-count" id ="wishlist-count">3</span>
+                                        <span class="item-count" id="wishlist-count">3</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#offcanvas-add-cart" class="offcanvas-toggle" id="show-cart-btn">
                                         <i class="icon-bag"></i>
-                                        <span class="item-count" id ="cart-count">0</span>
+                                        <span class="item-count" id="cart-count">0</span>
                                     </a>
                                 </li>
                                 <li>
@@ -485,7 +481,7 @@
                 </li>
             </ul>
             <div class="offcanvas-cart-total-price">
-                <span class="offcanvas-cart-total-price-text" >Subtotal:</span>
+                <span class="offcanvas-cart-total-price-text">Subtotal:</span>
                 <span class="offcanvas-cart-total-price-value" id="cart-subtotal">$170.00</span>
             </div>
             <ul class="offcanvas-cart-action-button">
@@ -536,10 +532,10 @@
     <!-- Start Offcanvas Search Bar Section -->
     <div id="search" class="search-modal">
         <button type="button" class="close">×</button>
-        <form>
-            <input type="search" placeholder="type keyword(s) here" />
-            <button type="submit" class="btn btn-lg btn-golden">Search</button>
-        </form>
+
+        <input type="search" placeholder="type keyword(s) here" id="search-input" />
+        <button type="submit" class="btn btn-lg btn-golden" id="search-submit">Search</button>
+
     </div>
     <!-- End Offcanvas Search Bar Section -->
 
@@ -680,7 +676,7 @@
                 <div class="image">
                     <img class="img-fluid" src="assets/images/banner/banner-style-4-img-1.jpg" alt="">
                 </div>
-                <a href="clothing.html" class="content">
+                <a href="shop-full-width.html?categoryId=1" class="content">
                     <div class="inner">
                         <h4 class="title">Clothing</h4>
                     </div>
@@ -694,7 +690,7 @@
                 <div class="image">
                     <img class="img-fluid" src="assets/images/banner/banner-style-4-img-2.jpg" alt="">
                 </div>
-                <a href="clothing.html" class="content">
+                <a href="shop-full-width.html?categoryId=2" class="content">
                     <div class="inner">
                         <h4 class="title">Shoes</h4>
                     </div>
@@ -708,7 +704,7 @@
                 <div class="image">
                     <img class="img-fluid" src="assets/images/banner/banner-style-4-img-3.jpg" alt="">
                 </div>
-                <a href="clothing.html" class="content">
+                <a href="shop-full-width.html?categoryId=3" class="content">
                     <div class="inner">
                         <h4 class="title">Hat</h4>
                     </div>
@@ -722,7 +718,7 @@
                 <div class="image">
                     <img class="img-fluid" src="assets/images/banner/banner-style-4-img-4.jpg" alt="">
                 </div>
-                <a href="clothing.html" class="content">
+                <a href="shop-full-width.html?categoryId=4" class="content">
                     <div class="inner">
                         <h4 class="title">accessories</h4>
                     </div>
@@ -1150,10 +1146,10 @@
                                 data-aos-delay="400">
                                 <h5 class="title">CATEGORIES</h5>
                                 <ul class="footer-nav">
-                                    <li><a href="clothing.html">Clothing</a></li>
-                                    <li><a href="shoes.html">Shoes</a></li>
-                                    <li><a href="hat.html">Hat</a></li>
-                                    <li><a href="accessories.html">Accessories</a></li>
+                                    <li><a href="shop-full-width.html?categoryId=1">Clothing</a></li>
+                                    <li><a href="shop-full-width.html?categoryId=2">Shoes</a></li>
+                                    <li><a href="shop-full-width.html?categoryId=3">Hat</a></li>
+                                    <li><a href="shop-full-width.html?categoryId=4">Accessories</a></li>
                                 </ul>
                             </div>
                             <!-- End Footer Single Item -->
@@ -1246,7 +1242,7 @@
     <div class="modal fade" id="modalAddcart" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
-                <div class="modal-body" >
+                <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col text-right">
@@ -1310,56 +1306,16 @@
                                 <div class="product-details-gallery-area mb-7">
                                     <!-- Start Large Image -->
                                     <div class="product-large-image modal-product-image-large swiper-container">
-                                        <div class="swiper-wrapper"id="quick-view-large-image">
-                                            <div class="product-image-large-image swiper-slide img-responsive">
-                                                <img src="assets/images/product/default/home-1/default-1.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-large-image swiper-slide img-responsive">
-                                                <img src="assets/images/product/default/home-1/default-2.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-large-image swiper-slide img-responsive">
-                                                <img src="assets/images/product/default/home-1/default-3.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-large-image swiper-slide img-responsive">
-                                                <img src="assets/images/product/default/home-1/default-4.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-large-image swiper-slide img-responsive">
-                                                <img src="assets/images/product/default/home-1/default-5.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-large-image swiper-slide img-responsive">
-                                                <img src="assets/images/product/default/home-1/default-6.jpg" alt="">
-                                            </div>
+                                        <div class="swiper-wrapper" id="quick-view-large-image">
+
                                         </div>
                                     </div>
                                     <!-- End Large Image -->
                                     <!-- Start Thumbnail Image -->
                                     <div
                                         class="product-image-thumb modal-product-image-thumb swiper-container pos-relative mt-5">
-                                        <div class="swiper-wrapper"id="quick-view-thumbnail">
-                                            <div class="product-image-thumb-single swiper-slide" >
-                                                <img class="img-fluid"
-                                                    src="assets/images/product/default/home-1/default-1.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-thumb-single swiper-slide">
-                                                <img class="img-fluid"
-                                                    src="assets/images/product/default/home-1/default-2.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-thumb-single swiper-slide">
-                                                <img class="img-fluid"
-                                                    src="assets/images/product/default/home-1/default-3.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-thumb-single swiper-slide">
-                                                <img class="img-fluid"
-                                                    src="assets/images/product/default/home-1/default-4.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-thumb-single swiper-slide">
-                                                <img class="img-fluid"
-                                                    src="assets/images/product/default/home-1/default-5.jpg" alt="">
-                                            </div>
-                                            <div class="product-image-thumb-single swiper-slide">
-                                                <img class="img-fluid"
-                                                    src="assets/images/product/default/home-1/default-6.jpg" alt="">
-                                            </div>
+                                        <div class="swiper-wrapper" id="quick-view-thumbnail">
+
                                         </div>
                                         <!-- Add Arrows -->
                                         <div class="gallery-thumb-arrow swiper-button-next"></div>
@@ -1378,54 +1334,32 @@
                                     <!-- Start Product Variable Area -->
                                     <div class="product-details-variable">
                                         <!-- Product Variable Single Item -->
-                                        <div class="variable-single-item">
-                                            <span>Color</span>
-                                            <div class="product-variable-color" id="quick-view-color">
-                                                <label for="modal-product-color-red">
-                                                    <input name="modal-product-color" id="modal-product-color-red"
-                                                        class="color-select" type="radio" checked>
-                                                    <span class="product-color-red"></span>
-                                                </label>
-                                                <label for="modal-product-color-tomato">
-                                                    <input name="modal-product-color" id="modal-product-color-tomato"
-                                                        class="color-select" type="radio">
-                                                    <span class="product-color-tomato"></span>
-                                                </label>
-                                                <label for="modal-product-color-green">
-                                                    <input name="modal-product-color" id="modal-product-color-green"
-                                                        class="color-select" type="radio">
-                                                    <span class="product-color-green"></span>
-                                                </label>
-                                                <label for="modal-product-color-light-green">
-                                                    <input name="modal-product-color"
-                                                        id="modal-product-color-light-green" class="color-select"
-                                                        type="radio">
-                                                    <span class="product-color-light-green"></span>
-                                                </label>
-                                                <label for="modal-product-color-blue">
-                                                    <input name="modal-product-color" id="modal-product-color-blue"
-                                                        class="color-select" type="radio">
-                                                    <span class="product-color-blue"></span>
-                                                </label>
-                                                <label for="modal-product-color-light-blue">
-                                                    <input name="modal-product-color"
-                                                        id="modal-product-color-light-blue" class="color-select"
-                                                        type="radio">
-                                                    <span class="product-color-light-blue"></span>
-                                                </label>
+                                        <div class="d-flex align-items-center flex-wrap">
+                                            <div class="variable-single-item">
+                                                <span>Size</span>
+                                                <select id="quick-view-size">
+                                                    <!-- <option selected value="1"> size in option</option>
+                                                    <option value="2">s</option>
+                                                    <option value="3">m</option>
+                                                    <option value="4">l</option>
+                                                    <option value="5">xl</option>
+                                                    <option value="6">xxl</option> -->
+                                                </select>
                                             </div>
                                         </div>
                                         <!-- Product Variable Single Item -->
                                         <div class="d-flex align-items-center flex-wrap">
                                             <div class="variable-single-item ">
                                                 <span>Quantity</span>
-                                                <div class="product-variable-quantity" >
-                                                    <input min="1" max="100" value="1" type="number"id="quick-view-quantity">
+                                                <div class="product-variable-quantity">
+                                                    <input min="1" max="100" value="1" type="number"
+                                                        id="quick-view-quantity">
                                                 </div>
                                             </div>
 
                                             <div class="product-add-to-cart-btn">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart" id="add-to-cart-view-modal">Add To
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart"
+                                                    id="add-to-cart-view-modal">Add To
                                                     Cart</a>
                                             </div>
                                         </div>

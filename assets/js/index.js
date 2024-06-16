@@ -8,7 +8,7 @@ import {
     getProductByCategory,
     addUserWishlist,
     getProductSkusByProductId,
-    getAttributeOption,
+    getSizeByProductId,
     addProductToCart
 } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
 $(document).ready(function () {
@@ -18,7 +18,9 @@ $(document).ready(function () {
             // Ensure the response data is treated as an array
             let data = Array.isArray(response.data) ? response.data : [response.data];
             // Set the number of items in the cart
-            document.querySelector('#cart-count').textContent = data.length;
+            document.querySelectorAll('#cart-count').forEach(element => {
+                element.textContent = data.length;
+            });
         });
     }
     // Call the function up and count the number of items in the wishlist
@@ -42,7 +44,7 @@ $(document).ready(function () {
             out += `<div class="product-default-single-item product-color--golden swiper-slide">
                                         <div class="image-box" productId="${output.id}">
                                             <a href="product-details-default.html" class="image-link">
-                                                <img src="${output.image}" alt="">
+                                                <img src="${output.image[0]}" alt="">
                                             </a>
                                             <div class="tag">
                                                 <span>sale</span>
@@ -89,20 +91,24 @@ $(document).ready(function () {
         for (let output of response.data) {
             // duyệt và tạo ra các button để lọc sản phẩm theo category
             out += `<div class="product-default-single-item product-color--golden swiper-slide">
-                                        <div class="image-box">
+                                        <div class="image-box" productId="${output.id}">
                                             <a href="product-details-default.html" class="image-link">
-                                                <img src="${output.image}" alt="">
+                                                <img src="${output.image[0]}" alt="">
                                             </a>
+                                            <div class="tag">
+                                                <span>sale</span>
+                                            </div>
                                             <div class="action-link">
                                                 <div class="action-link-left">
                                                     <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#modalAddcart">Add to Cart</a>
+                                                        data-bs-target="#modalAddcart" id ="add-to-cart-btn">Add to Cart</a>
                                                 </div>
                                                 <div class="action-link-right">
                                                     <a href="#" data-bs-toggle="modal"
                                                         data-bs-target="#modalQuickview"><i
-                                                            class="icon-magnifier"></i></a>
-                                                    <a href="wishlist.html"><i class="icon-heart"></i></a>
+                                                            class="icon-magnifier" id="quick-view-icon"></i></a>
+                                                    <a href="#"><i class="icon-heart"></i></a>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -143,13 +149,13 @@ $(document).ready(function () {
                     out += `<li class="offcanvas-wishlist-item-single">
                         <div class="offcanvas-wishlist-item-block">
                             <a href="#" class="offcanvas-wishlist-item-image-link">
-                                <img src="${output.image}" alt=""
+                                <img src="${output.image[0]}" alt=""
                                     class="offcanvas-wishlist-image">
                             </a>
                             <div class="offcanvas-wishlist-item-content">
                                 <a href="#" class="offcanvas-wishlist-item-link">${output.name}</a>
                                 <div class="offcanvas-wishlist-item-details">
-                                    <span class="offcanvas-wishlist-item-details-quantity">$${output.priceMin} - $${output.priceMin} </span>
+                                    <span class="offcanvas-wishlist-item-details-quantity">$${output.priceMin} - $${output.priceMax} </span>
                                 </div>
                             </div>
                         </div>
@@ -170,6 +176,7 @@ $(document).ready(function () {
                             console.log(response.data);
                             if (response.data) {
                                 event.target.closest('.offcanvas-wishlist-item-single').remove();
+                                calculateNumberWishlist();
                             } else {
                                 swal("Failed!", "Could not delete the item from the wishlist.", "warning");
                             }
@@ -207,13 +214,16 @@ $(document).ready(function () {
                     out += `<li class="offcanvas-wishlist-item-single">
                     <div class="offcanvas-wishlist-item-block">
                         <a href="#" class="offcanvas-wishlist-item-image-link">
-                            <img src="${output.image}" alt=""
+                            <img src="${output.image[0]}" alt=""
                                 class="offcanvas-wishlist-image">
                         </a>
                         <div class="offcanvas-wishlist-item-content">
                             <a href="#" class="offcanvas-wishlist-item-link">${output.name}</a>
                             <div class="offcanvas-wishlist-item-details">
                                 <span class="offcanvas-wishlist-item-details-quantity">${output.quantity} x $${output.price} </span>
+                            </div>
+                            <div class="offcanvas-wishlist-item-details">
+                                <span class="offcanvas-wishlist-item-details-quantity">Size : ${output.size}</span>
                             </div>
                         </div>
                     </div>
@@ -265,74 +275,99 @@ $(document).ready(function () {
             let largeImagePlaceholder = document.querySelector("#quick-view-large-image"); //trỏ đến id của table
             let thumNailPlaceholder = document.querySelector("#quick-view-thumbnail"); //trỏ đến id của table
             let quickViewProduct = document.querySelector("#quick-view-product"); //trỏ đến id của table
-            let quickViewColor = document.querySelector("#quick-view-color"); //trỏ đến id của table
+            let quickViewSize = document.querySelector("#quick-view-size"); //trỏ đến id của table
             let quickViewDesc = document.querySelector("#quick-view-desc"); //trỏ đến id của table
 
             getProductById(productId).then(response => {
                 let data = response.data;
-                //Tạo large image
-                thumNailPlaceholder.innerHTML = `
-                    <div class="product-image-large-image swiper-slide img-responsive">
-                        <img src="${data.image}" alt="">
-                    </div>
-                `;
 
-                largeImagePlaceholder.innerHTML = `
+                largeImagePlaceholder.innerHTML = ``;
+                thumNailPlaceholder.innerHTML = ``;
+                quickViewProduct.innerHTML = ``;
+                quickViewSize.innerHTML = ``;
+                quickViewDesc.innerHTML = ``;
+
+                //Tạo large image
+                for (let output of data.image) {
+                    largeImagePlaceholder.innerHTML += `
                     <div class="product-image-thumb-single swiper-slide" >
                         <img class="img-fluid"
-                            src="${data.image}" alt="">
+                            src="${output}" alt="">
                     </div>
                 `;
+                }
+                //Tạo thumbnail
+                for (let output of data.image) {
+                    thumNailPlaceholder.innerHTML += `
+                    <div class="product-image-large-image swiper-slide img-responsive">
+                        <img src="${output}" alt="">
+                    </div>
+                `;
+                }
+
+                //Tạo thông tin sản phẩm
                 quickViewProduct.innerHTML = `
                     <h4 class="title" productId="${data.id}">${data.name}</h4>
                     <div class="price">$${data.priceMin} - ${data.priceMax}</div>
                 `
+                //Tạo mô tả sản phẩm
                 quickViewDesc.innerHTML = `
                     <p>${data.shortDesc}</p>
                 `;
             });
-            getAttributeOption(productId, 1).then(response => {
+
+            getSizeByProductId(productId).then(response => {
                 let data = response.data;
-                let out = "";
+                let out = `<option> size in option</option>`;
                 for (let output of data) {
-                    out += `<label for="modal-product-color-${output.value}">
-                    <input name="modal-product-color" id="modal-product-color-${output.value}"
-                        class="color-select" type="radio" checked>
-                    <span class="product-color-${output.value}" color-id="${output.id}"></span>
-                </label>`;
+                    out += `<option value="${output.id}">${output.name}</option>`;
                 }
-                quickViewColor.innerHTML = out;
-            })
-            
+                console.log(out);
+                quickViewSize.innerHTML = out;
+                $('#quick-view-size').niceSelect('update');
+            });
         }
     });
 
+    // Attach an event listener to the body element to listen for clicks on the add to cart button in the quick view modal
     document.querySelector('body').addEventListener('click', event => {
         if (event.target.matches('#add-to-cart-view-modal')) {
             event.preventDefault();
             const productId = event.target.closest('.modal-product-details-content-area').querySelector('.title').getAttribute('productid');
             const quantity = document.querySelector('#quick-view-quantity').value;
-            const colorId = document.querySelector('input[name="modal-product-color"]:checked').nextElementSibling.getAttribute('color-id');
-            console.log(productId, quantity, colorId);
-            addProductToCart(productId, colorId, quantity).then(response => {
-                if(!response.data) swal("Failed!", "Could not add the item to the cart.", "warning");
+            const sizeId = document.querySelector('#quick-view-size + .nice-select .selected').getAttribute('data-value');
+            console.log(productId, quantity, sizeId);
+            addProductToCart(productId, sizeId, quantity).then(response => {
+                if (!response.data) swal("Failed!", "Could not add the item to the cart.", "warning");
                 calculateNumberCart();
             });
         }
     });
 
+    // Attach an event listener to the body element to listen for clicks on the add to cart button
     document.querySelector('body').addEventListener('click', event => {
         if (event.target.matches('#add-to-cart-btn')) {
             event.preventDefault();
             const productId = event.target.closest('.image-box').getAttribute('productId');
             const quantity = 1;
-            const colorId = 0;
-            console.log(productId, quantity, colorId);
-            addProductToCart(productId, colorId, quantity).then(response => {
-                if(!response.data) swal("Failed!", "Could not add the item to the cart.", "warning");
+            const sizeId = 0;
+            console.log(productId, quantity, sizeId);
+            addProductToCart(productId, sizeId, quantity).then(response => {
+                if (!response.data) swal("Failed!", "Could not add the item to the cart.", "warning");
                 calculateNumberCart();
             });
         }
     });
 
+    document.querySelector('#search-submit').addEventListener('click', function (event) {
+        let searchInput = document.querySelector('#search-input').value;
+        window.location.href = `shop-full-width.html?search=${searchInput}`;
+    })
 });
+
+
+function reinitSwiper(swiper) {
+    setTimeout(function () {
+        swiper.update();
+    }, 1000);
+}

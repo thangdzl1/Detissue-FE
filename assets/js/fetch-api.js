@@ -108,7 +108,7 @@ export function getProductByCategory() {
         {
             page: 0,
             size: 10,
-            id : 5
+            id : 1
         },
         jwtToken
     ).done(function (response) {
@@ -141,11 +141,10 @@ export function getProductSkusByProductId(id) {
         swal("Failed!", "warning",response.responseJSON.message);
     })
 }
-export function getAttributeOption(productId, attributeId) {
-    return getAjax("attribute-options",
+export function getSizeByProductId(productId) {
+    return getAjax("size/product",
         {
-            productId: productId,
-            attributeId: attributeId
+            id: productId,
         },
         jwtToken
     ).done(function (response) {
@@ -154,17 +153,17 @@ export function getAttributeOption(productId, attributeId) {
         swal("Failed!", "warning",response.responseJSON.message);
     })
 }
-export function addProductToCart(productId,attributOptionsId, quantity) {
+export function addProductToCart(productId,sizeId, quantity) {
     return getAjax("shopping-cart/add",
         {
             productId: productId,
-            attributOptionsId: attributOptionsId,
-            quantity: quantity
+            quantity: quantity,
+            sizeId: sizeId
         },
         jwtToken
     ).done(function (response) {
         return response;
     }).fail(function (response) {
-        swal("Failed!", "warning",response.responseJSON.message);
+        console.log("Failed!", "warning",response.responseJSON.message);
     })
 }
