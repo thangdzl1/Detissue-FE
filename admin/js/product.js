@@ -46,12 +46,13 @@ $(document).ready(function () {
             quantity,
             description,
             '$' + price,
-            '<button class="btn btn-warning btn-edit">Edit</button> <button class="btn btn-danger btn-delete">Delete</button>'
+            '<button class="btn btn-info btn-detail">Detail</button> <button class="btn btn-warning btn-edit">Edit</button> <button class="btn btn-danger btn-delete">Delete</button>'
         ]).draw(false);
 
         // Attach delete and edit events to new buttons
         attachDeleteEvent();
         attachEditEvent();
+        attachDetailEvent();
 
         // Close modal
         $('#myModal').modal('hide');
@@ -125,7 +126,7 @@ $(document).ready(function () {
                     updatedQuantity,
                     updatedDescription,
                     '$' + updatedPrice,
-                    '<button class="btn btn-warning btn-edit">Edit</button> <button class="btn btn-danger btn-delete">Delete</button>'
+                    '<button class="btn btn-info btn-detail">Detail</button> <button class="btn btn-warning btn-edit">Edit</button> <button class="btn btn-danger btn-delete">Delete</button>'
                 ]).draw(false);
 
                 // Close update modal
@@ -134,7 +135,28 @@ $(document).ready(function () {
                 // Re-attach events to updated buttons
                 attachDeleteEvent();
                 attachEditEvent();
+                attachDetailEvent();
             });
+        });
+    }
+
+    // Function to attach detail event
+    function attachDetailEvent() {
+        $('.btn-detail').off('click').on('click', function() {
+            var row = dataTable.row($(this).closest('tr'));
+            var rowData = row.data();
+
+            // Populate detail modal with row data
+            $('#detailID').val(rowData[0]);
+            $('#detailProductName').val(rowData[1]);
+            $('#detailCategory').val(rowData[2]);
+            $('#detailSize').val(rowData[3]);
+            $('#detailQuantity').val(rowData[4]);
+            $('#detailDescription').val(rowData[5]);
+            $('#detailPrice').val(rowData[6]);
+
+            // Show detail modal
+            $('#detailModal').modal('show');
         });
     }
 
@@ -155,7 +177,8 @@ $(document).ready(function () {
         });
     }
 
-    // Attach delete and edit events to existing buttons
+    // Attach delete, edit, and detail events to existing buttons
     attachDeleteEvent();
     attachEditEvent();
+    attachDetailEvent();
 });
