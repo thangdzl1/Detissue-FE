@@ -78,24 +78,12 @@ export function deleteUserCart(id) {
         return response;
     })
 }
-
-export function getUserOrder() {
-    return getAjax("shop-order/user",
-        {
-
-        },
-    ).done(function (response) {
-        return response;
-    }).fail(function (jqXHR) {
-        swal("Failed!", "warning");
-    })
-}
-
 export function getAddressByUserID() {
     return postAjax("user/address",
         {
 
         },
+        jwtToken
     ).done(function (response) {
         return response;
     }).fail(function (jqXHR) {
@@ -174,6 +162,17 @@ export function findProductBySearch(search) {
             size: 10,
             page: 0,
             keyword: search
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
+    }).fail(function (response) {
+        swal("Failed!", "warning",response.responseJSON.message);
+    })
+}
+export function getUserOrder(){
+    return getAjax("shop-order/user",
+        {
         },
         jwtToken
     ).done(function (response) {
