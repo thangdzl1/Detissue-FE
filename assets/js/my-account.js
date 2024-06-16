@@ -1,6 +1,8 @@
 import {
     getUserOrder,
-    getAddressByUserID
+    getAddressByUserID,
+    getUserDetail,
+    updateUserDetail
 } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
 $(document).ready(function () {
 
@@ -40,9 +42,10 @@ $(document).ready(function () {
                 if (!response.data) swal("Failed!", "Could not find address", "warning");
 
                 let addressTable = document.querySelector('#address');
-                let out = '';
+                let out = `<p>The following addresses will be used on the checkout page by default.</p>
+                            <h5 class="billing-address">Billing address</h5>`;
                 let data = Array.isArray(response.data) ? response.data : [response.data];
-                
+
                 console.log(data);
 
                 for (let output of data) {
@@ -57,24 +60,55 @@ $(document).ready(function () {
                             <p>${output.country}</p>
                     `;
                 }
-                addressTable.innerHTML += out;
+                addressTable.innerHTML = out;
             });
         }
 
         /* get user detail onclick */
         if (event.target.matches('a[data-bs-toggle="tab"]')) {
-            getUserDetail(data).then(response => {
-                data = response.data;
-                document.querySelector('input[name="first-name"]').value = data.firstName;
-                document.querySelector('input[name="last-name"]').value = data.lastName;
-                document.querySelector('input[name="email-name"]').value = data.email;
-                document.querySelector('input[name="user-password"]').value = data.password;
-                document.querySelector('input[name="birthday"]').value = data.birthday;
-                document.querySelector('#offer').checked = data.receiveOffers;
-                document.querySelector('#newsletter').checked = data.newsletter;
+            getUserDetail().then(response => {
+                let data = response.data;
+
+                let date = new Date(data.birthday);
+                let formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+                    date.getDate().toString().padStart(2, '0') + '/' +
+                    date.getFullYear();
+
+                document.querySelector('input[name="full-name"]').value = data.fullname;
+                document.querySelector('input[name="username"]').value = data.username;
+                document.querySelector('input[name="email"]').value = data.email;
+                document.querySelector('input[name="phone"]').value = data.phone;
+                document.querySelector('input[name="birthday"]').value = data.formattedDate;
             });
         }
 
+        /* update user detail onclick */
+        if (event.target.matches('#acct-save-btn')) {
+            let fullname = document.querySelector('input[name="full-name"]').value;
+            let username = document.querySelector('input[name="username"]').value;
+            let email = document.querySelector('input[name="email"]').value;
+            let phone = document.querySelector('input[name="phone"]').value;
+            let birthday = document.querySelector('input[name="birthday"]').value;
+            let password = document.querySelector('input[name="user-password"]').value;
+            let repeatepassword = document.querySelector('input[name="repeate-password"]').value;
+
+            if (password !== repeatepassword) {
+                swal("Failed!", "Password does not match", "warning");
+                return;
+            }
+
+            let date = new Date(birthday);
+            let formattedDate = (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+                date.getDate().toString().padStart(2, '0') + '/' +
+                date.getFullYear();
+
+            
+
+            updateUserDetail(fullname,username,email,phone,formattedDate,password).then(response => {
+                if (!response.data) swal("Failed!", "Could not update user", "warning");
+                swal("Success!", "User updated", "success");
+            });
+        }
 
         /* logout */
         if (event.target.matches('#logout')) {

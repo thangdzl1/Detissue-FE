@@ -97,7 +97,7 @@ export function getProductByCategory(id) {
         {
             page: 0,
             size: 5,
-            id : id
+            id: id
         },
         jwtToken
     ).done(function (response) {
@@ -108,14 +108,14 @@ export function getProductByCategory(id) {
 }
 
 export function getProductById(id) {
-    return getAjax("product/"+id,
+    return getAjax("product/" + id,
         {
         },
         jwtToken
     ).done(function (response) {
         return response;
     }).fail(function (response) {
-        swal("Failed!", "warning",response.responseJSON.message);
+        swal("Failed!", "warning", response.responseJSON.message);
     })
 }
 export function getProductSkusByProductId(id) {
@@ -127,7 +127,7 @@ export function getProductSkusByProductId(id) {
     ).done(function (response) {
         return response;
     }).fail(function (response) {
-        swal("Failed!", "warning",response.responseJSON.message);
+        swal("Failed!", "warning", response.responseJSON.message);
     })
 }
 export function getSizeByProductId(productId) {
@@ -139,10 +139,10 @@ export function getSizeByProductId(productId) {
     ).done(function (response) {
         return response;
     }).fail(function (response) {
-        swal("Failed!", "warning",response.responseJSON.message);
+        swal("Failed!", "warning", response.responseJSON.message);
     })
 }
-export function addProductToCart(productId,sizeId, quantity) {
+export function addProductToCart(productId, sizeId, quantity) {
     return getAjax("shopping-cart/add",
         {
             productId: productId,
@@ -153,7 +153,7 @@ export function addProductToCart(productId,sizeId, quantity) {
     ).done(function (response) {
         return response;
     }).fail(function (response) {
-        console.log("Failed!", "warning",response.responseJSON.message);
+        console.log("Failed!", "warning", response.responseJSON.message);
     })
 }
 export function findProductBySearch(search) {
@@ -167,10 +167,10 @@ export function findProductBySearch(search) {
     ).done(function (response) {
         return response;
     }).fail(function (response) {
-        swal("Failed!", "warning",response.responseJSON.message);
+        swal("Failed!", "warning", response.responseJSON.message);
     })
 }
-export function getUserOrder(){
+export function getUserOrder() {
     return getAjax("shop-order/user",
         {
         },
@@ -178,6 +178,35 @@ export function getUserOrder(){
     ).done(function (response) {
         return response;
     }).fail(function (response) {
-        swal("Failed!", "warning",response.responseJSON.message);
+        swal("Failed!", "warning", response.responseJSON.message);
+    })
+}
+export function getUserDetail() {
+    return getAjax("user/detail",
+        {
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
+    }).fail(function (response) {
+        swal("Failed!", "warning", response.responseJSON.message);
+    })
+}
+export function updateUserDetail(fullname, username, email, phone, birthday, password) {
+    console.log(fullname, username, email, phone, birthday, password);
+    return postAjax("user/update",
+        {
+            fullname: fullname,
+            username: username,
+            email: email,
+            phone: phone,
+            birthday: birthday,
+            password: password
+        },
+        jwtToken
+    ).done(function (response) {
+        return response;
+    }).fail(function (response) {
+        swal("Failed!", response.responseJSON.message, "warning");
     })
 }
