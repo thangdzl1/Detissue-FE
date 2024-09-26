@@ -1,3 +1,4 @@
+import { findProductBySearch, getAllProduct} from './fetch-api.js';
 $(document).ready(function () {
     var dataTable = $('#dataTable').DataTable({
         paging: false,  // Disable paging
@@ -176,6 +177,23 @@ $(document).ready(function () {
             $sizeSelect.append(option);
         });
     }
+    getAllProduct().done(function (response) {
+        response.forEach(function (product) {
+            dataTable.row.add([
+                product.id,
+                product.productName,
+                product.category,
+                product.size,
+                product.quantity,
+                product.description,
+                '$' + product.price,
+                '<button class="btn btn-info btn-detail">Detail</button> <button class="btn btn-warning btn-edit">Edit</button> <button class="btn btn-danger btn-delete">Delete</button>'
+            ]).draw(false);
+        });
+        attachDeleteEvent();
+        attachEditEvent();
+        attachDetailEvent();
+    });
 
     // Attach delete, edit, and detail events to existing buttons
     attachDeleteEvent();

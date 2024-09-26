@@ -83,6 +83,7 @@ $(document).ready(function () {
             `;
         }
         placeholder.innerHTML = out; // add the generated HTML to the product table
+        window.dispatchEvent(new Event('resize'));
     });
 
     getProductByCategory(5).done(function (response) {
