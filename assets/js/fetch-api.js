@@ -27,7 +27,7 @@ export function findUserWishlist() {
     ).done(function (response) {
         return response;
     }).fail(function (jqXHR) {
-        console.log("Failed!", "warning");
+        // console.log("Failed!", "warning");
     })
 }
 
@@ -64,7 +64,7 @@ export function getUserCartByUserID() {
     ).done(function (response) {
         return response;
     }).fail(function (jqXHR) {
-        swal("Failed!", "warning");
+        // swal("Failed!", "warning");
     })
 }
 

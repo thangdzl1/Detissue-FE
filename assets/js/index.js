@@ -199,6 +199,7 @@ $(document).ready(function () {
             let out = ""; // Initialize an empty string to build the HTML output
 
             // Ensure the response data is treated as an array
+            console.log(response.data)
             let data = Array.isArray(response.data) ? response.data : [response.data];
             let subTotal = 0; // Initialize a variable to store the total price of the cart items
             // Check if the cart is empty
