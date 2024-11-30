@@ -1,0 +1,69 @@
+openapi: 3.0.0
+info:
+  title: Add Product API
+  description: API endpoint for adding a new product to the system.
+  version: 1.0.0
+paths:
+  /products:
+    post:
+      summary: Add a new product
+      description: This endpoint allows you to add a new product by providing its details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the product.
+                  example: "Laptop"
+                description:
+                  type: string
+                  description: A brief description of the product.
+                  example: "A high-performance laptop."
+                price:
+                  type: number
+                  format: float
+                  description: The price of the product.
+                  example: 999.99
+                stock:
+                  type: integer
+                  description: The available stock quantity of the product.
+                  example: 50
+      responses:
+        '201':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The ID of the newly created product.
+                    example: 1
+                  name:
+                    type: string
+                    example: "Laptop"
+                  description:
+                    type: string
+                    example: "A high-performance laptop."
+                  price:
+                    type: number
+                    format: float
+                    example: 999.99
+                  stock:
+                    type: integer
+                    example: 50
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input data"

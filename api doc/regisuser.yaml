@@ -1,0 +1,67 @@
+openapi: 3.0.0
+info:
+  title: User Registration API
+  description: API endpoint for user registration in the system.
+  version: 1.0.0
+paths:
+  /users/register:
+    post:
+      summary: Register a new user
+      description: This endpoint allows a new user to register by providing their details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the user.
+                  example: "John Doe"
+                email:
+                  type: string
+                  description: The email address of the user.
+                  example: "john.doe@example.com"
+                password:
+                  type: string
+                  description: The password for the user account.
+                  example: "securepassword123"
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The ID of the newly created user.
+                    example: 1
+                  name:
+                    type: string
+                    example: "John Doe"
+                  email:
+                    type: string
+                    example: "john.doe@example.com"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input data"
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Email already in use"

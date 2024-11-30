@@ -1,0 +1,78 @@
+openapi: 3.0.0
+info:
+  title: Update Product API
+  description: API endpoint for updating an existing product's information.
+  version: 1.0.0
+paths:
+  /products/{id}:
+    put:
+      summary: Update product information
+      description: This endpoint allows you to update the information of an existing product specified by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the product to update.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The new name of the product.
+                  example: "Gaming Laptop"
+                description:
+                  type: string
+                  description: A brief description of the product.
+                  example: "A high-performance gaming laptop with advanced graphics."
+                price:
+                  type: number
+                  format: float
+                  description: The new price of the product.
+                  example: 1299.99
+                stock:
+                  type: integer
+                  description: The new available stock quantity of the product.
+                  example: 30
+      responses:
+        '200':
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The ID of the updated product.
+                    example: 1
+                  name:
+                    type: string
+                    example: "Gaming Laptop"
+                  description:
+                    type: string
+                    example: "A high-performance gaming laptop with advanced graphics."
+                  price:
+                    type: number
+                    format: float
+                    example: 1299.99
+                  stock:
+                    type: integer
+                    example: 30
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input data"
+        '404':
+          description: Product
