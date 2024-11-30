@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: Create Order API
+  description: API endpoint for creating a new order in the system.
+  version: 1.0.0
+paths:
+  /orders:
+    post:
+      summary: Create a new order
+      description: This endpoint allows you to create a new order by providing order details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  description: The ID of the user placing the order.
+                  example: 1
+                products:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      productId:
+                        type: integer
+                        description: The ID of the product being ordered.
+                        example: 101
+                      quantity:
+                        type: integer
+                        description: The quantity of the product being ordered.
+                        example: 2
+                totalAmount:
+                  type: number
+                  format: float
+                  description: The total amount for the order.
+                  example: 1999.98
+      responses:
+        '201':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderId:
+                    type: integer
+                    description: The ID of the newly created order.
+                    example: 1001
+                  userId:
+                    type: integer
+                    example: 1
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productId:
+                          type: integer
+                          example: 101
+                        quantity:
+                          type: integer
+                          example: 2
+                  totalAmount:
+                    type: number
+                    format: float
+                    example: 1999.98
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input data"
+        '404':
+          description: User or product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User or product not found"

@@ -1,0 +1,83 @@
+openapi: 3.0.0
+info:
+  title: Get Orders API
+  description: API endpoint for retrieving a list of orders from the system.
+  version: 1.0.0
+paths:
+  /orders:
+    get:
+      summary: Retrieve a list of orders
+      description: This endpoint allows you to retrieve all orders in the system.
+      parameters:
+        - name: userId
+          in: query
+          required: false
+          description: The ID of the user whose orders you want to retrieve.
+          schema:
+            type: integer
+            example: 1
+        - name: page
+          in: query
+          required: false
+          description: The page number for pagination.
+          schema:
+            type: integer
+            example: 1
+        - name: limit
+          in: query
+          required: false
+          description: The number of orders to return per page.
+          schema:
+            type: integer
+            example: 10
+      responses:
+        '200':
+          description: A list of orders retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orders:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        orderId:
+                          type: integer
+                          description: The ID of the order.
+                          example: 1001
+                        userId:
+                          type: integer
+                          description: The ID of the user who placed the order.
+                          example: 1
+                        products:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              productId:
+                                type: integer
+                                example: 101
+                              quantity:
+                                type: integer
+                                example: 2
+                        totalAmount:
+                          type: number
+                          format: float
+                          description: The total amount for the order.
+                          example: 1999.98
+                  total:
+                    type: integer
+                    description: The total number of orders available.
+                    example: 100
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "An error occurred while retrieving orders"

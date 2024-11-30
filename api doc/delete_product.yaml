@@ -1,0 +1,30 @@
+openapi: 3.0.0
+info:
+  title: Delete Product API
+  description: API endpoint for deleting a product from the system.
+  version: 1.0.0
+paths:
+  /products/{id}:
+    delete:
+      summary: Delete a product
+      description: This endpoint allows you to delete an existing product specified by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the product to delete.
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Product deleted successfully
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Product not found"

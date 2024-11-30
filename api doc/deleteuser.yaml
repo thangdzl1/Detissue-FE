@@ -1,0 +1,30 @@
+openapi: 3.0.0
+info:
+  title: Delete User API
+  description: API endpoint for deleting a user from the system.
+  version: 1.0.0
+paths:
+  /users/{id}:
+    delete:
+      summary: Delete a user
+      description: This endpoint allows you to delete an existing user specified by their ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user to delete.
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: User deleted successfully
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User not found"
