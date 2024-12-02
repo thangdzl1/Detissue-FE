@@ -12,30 +12,6 @@ import {
     addProductToCart
 } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
 $(document).ready(function () {
-    // Call the function up and count the number of items in the cart
-    function calculateNumberCart() {
-        getUserCartByUserID().done(function (response) {
-            // Ensure the response data is treated as an array
-            let data = Array.isArray(response.data) ? response.data : [response.data];
-            // Set the number of items in the cart
-            document.querySelectorAll('#cart-count').forEach(element => {
-                element.textContent = data.length;
-            });
-        });
-    }
-    // Call the function up and count the number of items in the wishlist
-    function calculateNumberWishlist() {
-        findUserWishlist().done(function (response) {
-            // Ensure the response data is treated as an array
-            let data = Array.isArray(response.data) ? response.data : [response.data];
-            // Set the number of items in the cart
-            document.querySelector('#wishlist-count').textContent = data.length;
-        });
-    }
-    calculateNumberCart();
-    calculateNumberWishlist();
-
-
     getAllProduct().done(function (response) {
         let placeholder = document.querySelector("#product-table"); //trỏ đến id của table
         let out = "";
@@ -360,11 +336,6 @@ $(document).ready(function () {
             });
         }
     });
-
-    document.querySelector('#search-submit').addEventListener('click', function (event) {
-        let searchInput = document.querySelector('#search-input').value;
-        window.location.href = `shop-full-width.html?search=${searchInput}`;
-    })
 });
 
 

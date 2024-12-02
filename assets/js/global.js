@@ -14,6 +14,7 @@ $(document).ready(function () {
         // Set the number of items in the cart
         document.querySelector('#wishlist-count').textContent = data.length;
     });
+
     document.querySelector('#show-wishlist-btn').addEventListener('click', function (event) {
         event.preventDefault();
         findUserWishlist().done(function (response) {
@@ -29,7 +30,7 @@ $(document).ready(function () {
                     out += `<li class="offcanvas-wishlist-item-single">
                         <div class="offcanvas-wishlist-item-block">
                             <a href="#" class="offcanvas-wishlist-item-image-link">
-                                <img src="${output.image}" alt=""
+                                <img src="${output.image[1]}" alt=""
                                     class="offcanvas-wishlist-image">
                             </a>
                             <div class="offcanvas-wishlist-item-content">
@@ -65,7 +66,6 @@ $(document).ready(function () {
             }
         });
     });
-
     // Attach an event listener to the element with ID 'show-cart-btn'
     document.querySelector('#show-cart-btn').addEventListener('click', function (event) {
         event.preventDefault(); // Prevent the default action of the button click
@@ -92,7 +92,7 @@ $(document).ready(function () {
                     out += `<li class="offcanvas-wishlist-item-single">
                     <div class="offcanvas-wishlist-item-block">
                         <a href="#" class="offcanvas-wishlist-item-image-link">
-                            <img src="${output.image}" alt=""
+                            <img src="${output.image[1]}" alt=""
                                 class="offcanvas-wishlist-image">
                         </a>
                         <div class="offcanvas-wishlist-item-content">
@@ -128,4 +128,37 @@ $(document).ready(function () {
             }
         });
     });
+
+    function calculateNumberCart() {
+        getUserCartByUserID().done(function (response) {
+            // Ensure the response data is treated as an array
+            let data = Array.isArray(response.data) ? response.data : [response.data];
+            // Set the number of items in the cart
+            document.querySelectorAll('#cart-count').forEach(element => {
+                element.textContent = data.length;
+            });
+        }).fail(function () {
+            // Handle the failure by setting cart count to 0
+            document.querySelectorAll('#cart-count').forEach(element => {
+                element.textContent = 0;
+            });
+        });
+    }calculateNumberCart()
+
+    function calculateNumberWishlist() {
+        findUserWishlist().done(function (response) {
+            // Ensure the response data is treated as an array
+            let data = Array.isArray(response.data) ? response.data : [response.data];
+            // Set the number of items in the wishlist
+            document.querySelector('#wishlist-count').textContent = data.length;
+        }).fail(function () {
+            // Handle the failure by setting wishlist count to 0
+            document.querySelector('#wishlist-count').textContent = 0;
+        });
+    }calculateNumberWishlist()
+    
+    document.querySelector('#search-submit').addEventListener('click', function (event) {
+        let searchInput = document.querySelector('#search-input').value;
+        window.location.href = `shop-full-width.html?search=${searchInput}`;
+    })
 });

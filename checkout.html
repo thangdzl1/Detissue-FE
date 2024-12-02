@@ -176,7 +176,7 @@
                                 <li>
                                     <a href="#offcanvas-wishlish" class="offcanvas-toggle" id="show-wishlist-btn">
                                         <i class="icon-heart"></i>
-                                        <span class="item-count" id="wishlist-count">0>3</span>
+                                        <span class="item-count" id="wishlist-count">0</span>
                                     </a>
                                 </li>
                                 <li>
@@ -540,10 +540,10 @@
     <!-- Start Offcanvas Search Bar Section -->
     <div id="search" class="search-modal">
         <button type="button" class="close">×</button>
-        <form>
-            <input type="search" placeholder="type keyword(s) here" />
-            <button type="submit" class="btn btn-lg btn-golden">Search</button>
-        </form>
+
+        <input type="search" placeholder="type keyword(s) here" id="search-input" />
+        <button type="submit" class="btn btn-lg btn-golden" id="search-submit">Search</button>
+
     </div>
     <!-- End Offcanvas Search Bar Section -->
 
@@ -1148,7 +1148,7 @@
 
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
-    <script type="module" src="assets/js/shop.js"></script>
+    <script type="module" src="assets/js/global.js"></script>
     <script type="module" src="assets/js/checkout.js"></script>
 </body>
 
