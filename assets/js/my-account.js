@@ -55,12 +55,11 @@ $(document).ready(function () {
                     out += `
                 <a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview" addressId="${output.id}">Edit</a>
                             <address>
-                                isDefault : ${output.default}<br>
-                                ${output.street_address} #1<br>
-                                ${output.town_city} <br>
-                                ${output.id} <br>
+                                Street/Adress: ${output.street_address}<br>
+                                Town/City: ${output.town_city} <br>
+                                State/Province: ${output.id} <br>
+                                Country: ${output.country}
                             </address>
-                            <p>${output.country}</p>
                     `;
                 }
                 addressTable.innerHTML = out;

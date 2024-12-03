@@ -311,6 +311,10 @@ $(document).ready(function () {
     // Attach an event listener to the body element to listen for clicks on the add to cart button in the quick view modal
     document.querySelector('body').addEventListener('click', event => {
         if (event.target.matches('#add-to-cart-view-modal')) {
+            if(localStorage.getItem('token') == null)
+                {
+                    window.location.href = "login.html"
+            }
             event.preventDefault();
             const productId = event.target.closest('.modal-product-details-content-area').querySelector('.title').getAttribute('productid');
             const quantity = document.querySelector('#quick-view-quantity').value;
@@ -319,6 +323,8 @@ $(document).ready(function () {
             addProductToCart(productId, sizeId, quantity).then(response => {
                 if (!response.data) swal("Failed!", "Could not add the item to the cart.", "warning");
                 calculateNumberCart();
+                $('#modalAddcart').modal('hide');
+                document.querySelector('#modalAddcart').hidden = true;
             });
         }
     });
@@ -326,6 +332,10 @@ $(document).ready(function () {
     // Attach an event listener to the body element to listen for clicks on the add to cart button
     document.querySelector('body').addEventListener('click', event => {
         if (event.target.matches('#add-to-cart-btn')) {
+            if(localStorage.getItem('token') == null)
+                {
+                    window.location.href = "login.html"
+            }
             event.preventDefault();
             const productId = event.target.closest('.image-box').getAttribute('productId');
             const quantity = 1;
@@ -334,8 +344,7 @@ $(document).ready(function () {
             addProductToCart(productId, sizeId, quantity).then(response => {
                 if (!response.data) swal("Failed!", "Could not add the item to the cart.", "warning");
                 calculateNumberCart();
-                $('#modalAddcart').modal('hide');
-                document.querySelector('#modalAddcart').hidden = true;
+                
             });
         }
     });

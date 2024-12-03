@@ -200,7 +200,7 @@ export function updateUserDetail(fullname, username, email, phone, birthday, pas
             username: username,
             email: email,
             phone: phone,
-            birthday: birthday,
+            birthDay: birthday,
             password: password
         },
         jwtToken
