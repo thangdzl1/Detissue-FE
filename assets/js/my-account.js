@@ -6,7 +6,10 @@ import {
 } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
 $(document).ready(function () {
 
-
+    if(localStorage.getItem('token') == null)
+        {
+            window.location.href = "login.html"
+    }
     document.querySelector('body').addEventListener('click', event => {
 
         /* get order onclick */
@@ -113,7 +116,7 @@ $(document).ready(function () {
         /* logout */
         if (event.target.matches('#logout')) {
             event.preventDefault();
-            localStorage.removeItem('jwtToken');
+            localStorage.removeItem('token');
             window.location.href = 'login.html';
         }
 
