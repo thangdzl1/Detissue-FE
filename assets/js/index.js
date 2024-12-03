@@ -187,6 +187,7 @@ $(document).ready(function () {
             } else {
                 // Loop through each item in the data array
                 for (let output of data) {
+                    console.log(data)
                     subTotal += output.price * output.quantity; // Calculate the total price of the cart items
                     // Append the HTML structure for each cart item to the output string
                     out += `<li class="offcanvas-wishlist-item-single">

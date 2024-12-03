@@ -12,6 +12,10 @@ import {
 } from './fetch-api.js';//import các hàm getAjax và postAjax từ file api-ajax.js
 
 $(document).ready(function () {
+    if(localStorage.getItem('token') == null)
+        {
+            window.location.href = "login.html"
+    }
     getUserCartByUserID().done(function (response) {
     let placeholder = document.querySelector("#cart-table");
     let out = "";
