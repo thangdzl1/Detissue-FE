@@ -1,5 +1,5 @@
 export const jwtToken = localStorage.getItem("token");//lấy token từ local storage
-export const url = "http://localhost:8080/"; //url của server
+export const url = "detissue-be-production.up.railway.app/"; //url của server
 
 export function getAjax(endPoint, data = {}, jwtToken = "") {
 
