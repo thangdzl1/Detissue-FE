@@ -280,7 +280,7 @@ $(document).ready(function () {
                     <div class="product-image-large-image swiper-slide img-responsive">
                         <img src="${output}" alt="">
                     </div>
-                `;
+                `;window.dispatchEvent(new Event('resize'));
                 }
 
                 //Tạo thông tin sản phẩm
@@ -305,6 +305,7 @@ $(document).ready(function () {
                 $('#quick-view-size').niceSelect('update');
             });
         }
+
     });
 
     // Attach an event listener to the body element to listen for clicks on the add to cart button in the quick view modal
@@ -333,6 +334,8 @@ $(document).ready(function () {
             addProductToCart(productId, sizeId, quantity).then(response => {
                 if (!response.data) swal("Failed!", "Could not add the item to the cart.", "warning");
                 calculateNumberCart();
+                $('#modalAddcart').modal('hide');
+                document.querySelector('#modalAddcart').hidden = true;
             });
         }
     });
