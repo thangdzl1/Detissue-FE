@@ -112,6 +112,7 @@ $(document).ready(function () {
                 `;
             }
             listView.innerHTML = out; // add the generated HTML to the product table
+            window.dispatchEvent(new Event('resize'));
         });
     }
     if (search) {
